@@ -2,7 +2,6 @@ import Oeuvre from "./oeuvre.tsx";
 import {Section} from "../../pages/interfaces/section.interface.ts";
 
 function OeuvreSection(props: {title: string, nameButton?: string, datas?: Section[]}) {
-    const datas : Section[] = props.datas;
     return (
         <div>
           <div className="mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
