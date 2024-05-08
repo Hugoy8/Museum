@@ -1,7 +1,10 @@
 import OeuvreSection from "../../components/oeuvre/oeuvre-section.tsx";
 import Statistics from "../../components/statistics/statistics.tsx";
+import UseisHighlightArtwork from "../../services/isHighlight-artwork.ts";
+import {Section} from "../interfaces/section.interface.ts";
 
 function Home() {
+    const dataHighlight : Section[] = UseisHighlightArtwork();
     const authorsList = [
         {
             pictureUrl: "https://www.histoire-pour-tous.fr/images/articles/dossiers/biographies/leonard-de-vinci-portrait.jpg",
@@ -68,7 +71,7 @@ function Home() {
     return (
         <>
             <OeuvreSection title="Les nouveautés"></OeuvreSection>
-            <OeuvreSection title="Les plus divines"></OeuvreSection>
+            <OeuvreSection title="Les populaires" datas={dataHighlight}></OeuvreSection>
             <div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-48 lg:px-8">
                 <div className="mx-auto max-w-2xl lg:mx-0">
                     <h2 className="text-3xl font-bold tracking-tight dark:text-white text-gray-900 sm:text-4xl">Des artistes connues</h2>
