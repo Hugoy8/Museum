@@ -30,12 +30,12 @@ const UseisHighlightArtwork = () => {
     useEffect(() => {
         const getArtworkIfisHighlight = async () => {
             try {
-                const response = await fetch('https://collectionapi.metmuseum.org/public/collection/v1/search?isHighlight=true&q="sunflower"');
+                const response = await fetch('https://collectionapi.metmuseum.org/public/collection/v1/search?isHighlight=true&q=""');
                 if (!response.ok) {
                     throw new Error('API response not OK');
                 }
                 const searchData: SearchInterface = await response.json();
-                const shuffledIDs = shuffle(searchData.objectIDs);
+                const shuffledIDs = shuffle([...searchData.objectIDs]); // Create a new array to ensure shuffle works correctly
                 const artworks: Section[] = [];
                 for (let i = 0; i < 4; i++) {
                     const artworkData = await getArtworkDataById(shuffledIDs[i]);
@@ -52,7 +52,7 @@ const UseisHighlightArtwork = () => {
             console.log(r)
         );
     }, []);
-    console.log(data);
+
     return data;
 }
 
