@@ -1,13 +1,13 @@
 import Oeuvre from "./oeuvre.tsx";
 
-function OeuvreSection(props: {title: string}) {
+function OeuvreSection(props: {title: string, nameButton?: string}) {
     return (
         <div>
           <div className="mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
             <div className="md:flex md:items-center md:justify-between">
               <h2 className="text-2xl font-bold tracking-tight dark:text-white text-gray-900">{props.title}</h2>
               <a href="#" className="hidden text-sm font-medium dark:text-indigo-400 text-indigo-600 hover:text-indigo-500 md:block">
-                Découvrir
+                {props.nameButton == undefined ? "Découvrir" : props.nameButton}
                 <span aria-hidden="true"> &rarr;</span>
               </a>
             </div>
@@ -21,7 +21,7 @@ function OeuvreSection(props: {title: string}) {
 
             <div className="mt-8 text-sm md:hidden">
               <a href="#" className="font-medium dark:text-indigo-400 text-indigo-600 hover:text-indigo-500">
-                Découvrir
+                {props.nameButton == undefined ? "Découvrir" : props.nameButton}
                 <span aria-hidden="true"> &rarr;</span>
               </a>
             </div>
