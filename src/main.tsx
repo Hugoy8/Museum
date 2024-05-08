@@ -8,6 +8,7 @@ import Footer from "./components/footer/footer.tsx";
 import './styles.css'
 import OeuvreSingle from "./pages/oeuvre-single/oeuvre-single.tsx";
 import OeuvreList from "./components/oeuvre/oeuvre-list.tsx";
+import Search from "./pages/search/search.tsx";
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -17,6 +18,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
               <main>
                   <Routes>
                       <Route path="/" element={<Home />}></Route>
+                      <Route path="/search" element={<Search />}></Route>
                       <Route path="/oeuvres" element={<OeuvreList />}></Route>
                       <Route path="/oeuvre/:id" element={<OeuvreSingle />}></Route>
                       <Route path="*" element={<NotFound />}></Route>

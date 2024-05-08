@@ -25,17 +25,16 @@ function Header() {
               <Link to="/oeuvres">
                 <a className="text-sm font-semibold leading-6 text-gray-900 dark:text-white dark:hover:text-gray-300">Oeuvres</a>
               </Link>
-              <a href="#"
-                 className="text-sm font-semibold leading-6 text-gray-900 dark:text-white dark:hover:text-gray-300">Actualité</a>
+              <a href="#" className="text-sm font-semibold leading-6 text-gray-900 dark:text-white dark:hover:text-gray-300">Actualité</a>
               <a href="#" className="text-sm font-semibold leading-6 text-gray-900 dark:text-white dark:hover:text-gray-300">A Propos</a>
             </div>
             <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-4 align-middle">
-              <a className="">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="dark:hover:text-gray-300 dark:text-white lucide lucide-search">
-                  <circle cx="11" cy="11" r="8"/>
-                  <path d="m21 21-4.3-4.3"/>
-                </svg>
-              </a>
+              <Link to="/search">
+                <a><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="dark:hover:text-gray-300 dark:text-white lucide lucide-search">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="m21 21-4.3-4.3"/>
+                  </svg></a>
+              </Link>
               <DarkModeToggle></DarkModeToggle>
             </div>
           </nav>
@@ -44,7 +43,7 @@ function Header() {
             <div
                 className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
               <div className="flex items-center justify-between">
-                <Link to={"/"}>
+                <Link to="/">
                   <a href="#" className="-m-1.5 p-1.5">
                     <span className="sr-only">Museum</span>
                     <img className="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt=""/>
