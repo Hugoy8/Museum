@@ -3,7 +3,6 @@ import { useArtworkById, getDepartmentId, fetchSimilarArtworks } from '../../ser
 import {ArtworkInterface} from "../interfaces/oeuvre-single.interface.ts";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
 import Loader from "../../components/loader/loader.tsx";
 import {Section} from "../interfaces/section.interface.ts";
 
