@@ -35,7 +35,7 @@ const UseisHighlightArtwork = () => {
                     throw new Error('API response not OK');
                 }
                 const searchData: SearchInterface = await response.json();
-                const shuffledIDs = shuffle([...searchData.objectIDs]); // Create a new array to ensure shuffle works correctly
+                const shuffledIDs = shuffle([...searchData.objectIDs]);
                 const artworks: Section[] = [];
                 for (let i = 0; i < 4; i++) {
                     const artworkData = await getArtworkDataById(shuffledIDs[i]);

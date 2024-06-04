@@ -81,3 +81,4 @@ export interface ArtworkInterface {
     isTimelineWork: boolean;
     GalleryNumber: string;
 }
+
