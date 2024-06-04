@@ -1,7 +1,7 @@
 function Loader() {
   return (
       <div className="text-center">
-          <div className="flex justify-center items-center" role="status">
+          <div className="flex justify-center items-center h-screen" role="status">
               <svg aria-hidden="true"
                    className="inline w-8 h-8 text-gray-200 animate-spin dark:text-white/5 fill-indigo-600 dark:fill-indigo-400"
                    viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
