@@ -7,6 +7,7 @@ import {
 import { ArtworkInterface } from "../interfaces/oeuvre-single.interface.ts";
 import Oeuvre from "../../components/oeuvre/oeuvre.tsx";
 import { artworkResultSearch } from "../interfaces/search.interface.ts";
+import Loader from "../../components/loader/loader.tsx";
 
 function Search() {
     const [searchTerm, setSearchTerm] = useState('');
@@ -192,7 +193,7 @@ function Search() {
                 </div>
             </form>
 
-            {loading && <p>Loading...</p>}
+            {loading ? <Loader></Loader> : null}
             {error && <p>{error}</p>}
 
             <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-4 lg:gap-x-8">

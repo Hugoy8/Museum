@@ -25,7 +25,8 @@ const getArtworkDataById = async (id: number) => {
 }
 
 const UseisHighlightArtwork = () => {
-    const [data, setData] = useState<Section[]>([]);
+    const [dataHighlight, setDataHighlight] = useState<Section[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const getArtworkIfisHighlight = async () => {
@@ -43,17 +44,16 @@ const UseisHighlightArtwork = () => {
                         artworks.push(artworkData);
                     }
                 }
-                setData(artworks);
+                setDataHighlight(artworks);
+                setIsLoading(false);
             } catch (e) {
                 console.error(e);
             }
         }
-        getArtworkIfisHighlight().then(r =>
-            console.log(r)
-        );
+        getArtworkIfisHighlight().then(r => console.log(r));
     }, []);
 
-    return data;
+    return {dataHighlight, isLoading};
 }
 
 export default UseisHighlightArtwork;

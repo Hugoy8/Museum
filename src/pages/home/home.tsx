@@ -1,78 +1,21 @@
 import OeuvreSection from "../../components/oeuvre/oeuvre-section.tsx";
 import Statistics from "../../components/statistics/statistics.tsx";
 import UseisHighlightArtwork from "../../services/isHighlight-artwork.ts";
-import {Section} from "../interfaces/section.interface.ts";
 import notFoundArtistImage from '../../assets/not-found/artist.png';
 import Loader from "../../components/loader/loader.tsx";
+import {authorsList} from "./auhtorList.ts";
+import {useEffect} from "react";
 
 function Home() {
-    const dataHighlight : Section[] = UseisHighlightArtwork();
-    const authorsList = [
-        {
-            pictureUrl: "https://www.histoire-pour-tous.fr/images/articles/dossiers/biographies/leonard-de-vinci-portrait.jpg",
-            name: "Leonardo da Vinci",
-            typeOfOeuvre: "Peinture, dessin"
-        },
-        {
-            pictureUrl: "https://www.repro-tableaux.com/kunst/english_school_19th_century/michelangelo_buonarroti_1475-1_hi.jpg",
-            name: "Michel-Ange Buonarroti",
-            typeOfOeuvre: "Sculpture, peinture"
-        },
-        {
-            pictureUrl: "https://commons.wikimedia.org/wiki/File:Vincent_van_Gogh_-_s0273V1962_-_Van_Gogh_Museum.jpg?uselang=fr",
-            name: "Vincent van Gogh",
-            typeOfOeuvre: "Peinture"
-        },
-        {
-            pictureUrl: "https://memoiredencres.com/wp-content/uploads/2021/02/Photo-de-Pablo-Picasso-600x635.jpg",
-            name: "Pablo Picasso",
-            typeOfOeuvre: "Peinture, sculpture"
-        },
-        {
-            pictureUrl: "",
-            name: "Claude Monet",
-            typeOfOeuvre: "Peinture"
-        },
-        {
-            pictureUrl: "",
-            name: "Salvador Dalí",
-            typeOfOeuvre: "Peinture, sculpture"
-        },
-        {
-            pictureUrl: "",
-            name: "Frida Kahlo",
-            typeOfOeuvre: "Peinture"
-        },
-        {
-            pictureUrl: "",
-            name: "Jackson Pollock",
-            typeOfOeuvre: "Peinture"
-        },
-        {
-            pictureUrl: "",
-            name: "Andy Warhol",
-            typeOfOeuvre: "Peinture, sérigraphie"
-        },
-        {
-            pictureUrl: "",
-            name: "Gustav Klimt",
-            typeOfOeuvre: "Peinture"
-        },
-        {
-            pictureUrl: "",
-            name: "Auguste Rodin",
-            typeOfOeuvre: "Sculpture"
-        },
-        {
-            pictureUrl: "",
-            name: "Rembrandt van Rijn",
-            typeOfOeuvre: "Peinture"
-        }
-    ];
-
+    const {dataHighlight, isLoading}  =  UseisHighlightArtwork();
+    useEffect(() => {
+    }, [dataHighlight, isLoading]);
     return (
         <>
-            <Loader></Loader>
+            {isLoading ? (
+                <Loader></Loader>
+            ) : (
+                <>
             <OeuvreSection title="Les nouveautés"></OeuvreSection>
             <OeuvreSection title="Les populaires" datas={dataHighlight}></OeuvreSection>
             <div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-48 lg:px-8">
@@ -81,8 +24,8 @@ function Home() {
                     <p className="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300">Sit facilis neque ab nulla vel. Cum eos in laudantium. Temporibus eos totam in dolorum. Nemo vel facere repellendus ut eos dolores similique.</p>
                 </div>
                 <ul role="list" className="mx-auto mt-20 grid max-w-2xl grid-cols-2 gap-x-8 gap-y-16 text-center sm:grid-cols-3 md:grid-cols-4 lg:mx-0 lg:max-w-none lg:grid-cols-5 xl:grid-cols-6">
-                    {authorsList.map((authorElement) => (
-                        <li>
+                    {authorsList.map((authorElement, index) => (
+                        <li key={index}>
                             <img className="mx-auto h-24 w-24 rounded-full object-cover" src={authorElement.pictureUrl} onError={({ currentTarget }) => {currentTarget.onerror = null; currentTarget.src=notFoundArtistImage;}} alt=""/>
                             <h3 className="mt-4 text-center text-base font-semibold leading-7 tracking-tight dark:text-white text-gray-900">{authorElement.name}</h3>
                             <p className="text-sm text-center leading-6 text-gray-600 dark:text-gray-300">{authorElement.typeOfOeuvre}</p>
@@ -115,6 +58,8 @@ function Home() {
                         description: "Augmentation annuelle"
                     }
                 ]}></Statistics>
+            </>
+            )}
         </>
     )
 }
