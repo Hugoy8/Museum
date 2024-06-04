@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import {
-    searchArtworkByTitle,
     getArtworkDataById,
     searchArtworkByFilters,
-    fetchDepartments
+    fetchDepartments, handleDateValidation
 } from "../../services/search.service.tsx";
 import { ArtworkInterface } from "../interfaces/oeuvre-single.interface.ts";
 import Oeuvre from "../../components/oeuvre/oeuvre.tsx";
@@ -21,6 +20,9 @@ function Search() {
     const [hasImages, setHasImages] = useState(false);
     const [departmentId, setDepartmentId] = useState<number | null>(null);
     const [departments, setDepartments] = useState<string[]>([]);
+    const [geoLocation, setGeoLocation] = useState('');
+    const [dateBegin, setDateBegin] = useState<number | null>(null);
+    const [dateEnd, setDateEnd] = useState<number | null>(null);
 
     const artworksPerPage = 20;
 
@@ -30,6 +32,10 @@ function Search() {
 
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(event.target.value);
+    };
+
+    const handleGeoLocationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setGeoLocation(event.target.value);
     };
 
     const handleFilterChange = (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
@@ -44,14 +50,20 @@ function Search() {
 
     const handleSearchSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+
+        if (dateBegin && dateEnd && dateBegin > dateEnd) {
+            setError('La date de début doit être avant la date de fin.');
+            return;
+        }
+
         setLoading(true);
         try {
-            const results = await searchArtworkByFilters(searchTerm ? searchTerm : " ", isHighlight, hasImages, departmentId);
+            const results = await searchArtworkByFilters(searchTerm ? searchTerm : " ", isHighlight, hasImages, departmentId, geoLocation, dateBegin, dateEnd);
             setAllResults(results);
             setCurrentPage(1);
             fetchArtworks(results, 1);
         } catch (e) {
-            setError('An error occurred while fetching the artworks.');
+            setError('Une erreur s\'est produite lors de la récupération des œuvres d\'art.');
         } finally {
             setLoading(false);
         }
@@ -90,13 +102,13 @@ function Search() {
                         <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
                              xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                         </svg>
                     </div>
                     <input type="search" id="default-search"
                            className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                            placeholder="Search Artworks..."
-                           value={searchTerm} onChange={handleSearchChange} />
+                           value={searchTerm} onChange={handleSearchChange}/>
                     <button type="submit"
                             className="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search
                     </button>
@@ -135,6 +147,36 @@ function Search() {
                             </option>
                         ))}
                     </select>
+                    <div className="mt-4">
+                        <input
+                            type="text"
+                            name="geoLocation"
+                            value={geoLocation}
+                            onChange={handleGeoLocationChange}
+                            className="block w-full mt-4 p-2 border border-gray-300 rounded-md"
+                            placeholder="Geo Location"
+                        />
+                    </div>
+                    <div className="mt-4">
+                        <input
+                            type="number"
+                            name="dateBegin"
+                            value={dateBegin || ''}
+                            onChange={(e) => setDateBegin(e.target.value ? parseInt(e.target.value) : null)}
+                            className="block w-full mt-4 p-2 border border-gray-300 rounded-md"
+                            placeholder="Date Begin"
+                        />
+                    </div>
+                    <div className="mt-4">
+                        <input
+                            type="number"
+                            name="dateEnd"
+                            value={dateEnd || ''}
+                            onChange={(e) => setDateEnd(e.target.value ? parseInt(e.target.value) : null)}
+                            className="block w-full mt-4 p-2 border border-gray-300 rounded-md"
+                            placeholder="Date End"
+                        />
+                    </div>
                 </div>
             </form>
 

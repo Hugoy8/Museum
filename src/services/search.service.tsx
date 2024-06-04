@@ -17,13 +17,19 @@ const getArtworkDataById = async (id: number) => {
             throw new Error('API response not OK');
         }
         const data: ArtworkInterface = await response.json();
-        return {id: data.objectID, title: data.title, artistDisplayName: data.artistDisplayName, objectDate: data.objectDate, primaryImage: data.primaryImage};
+        return {
+            id: data.objectID,
+            title: data.title,
+            artistDisplayName: data.artistDisplayName,
+            objectDate: data.objectDate,
+            primaryImage: data.primaryImage
+        };
     } catch (e) {
         console.error(e);
     }
 }
 
-const searchArtworkByFilters = async (title: string, isHighlight: boolean, hasImages: boolean, departmentId: number | null): Promise<number[]> => {
+const searchArtworkByFilters = async (title: string, isHighlight: boolean, hasImages: boolean, departmentId: number | null, geoLocation: string, dateBegin: number | null, dateEnd: number | null): Promise<number[]> => {
     let url = `https://collectionapi.metmuseum.org/public/collection/v1/search?q=${title}`;
     if (isHighlight) {
         url += `&isHighlight=true`;
@@ -33,6 +39,15 @@ const searchArtworkByFilters = async (title: string, isHighlight: boolean, hasIm
     }
     if (departmentId) {
         url += `&departmentId=${departmentId}`;
+    }
+    if (geoLocation) {
+        url += `&geoLocation=${encodeURIComponent(geoLocation)}`;
+    }
+    if (dateBegin) {
+        url += `&dateBegin=${dateBegin}`;
+    }
+    if (dateEnd) {
+        url += `&dateEnd=${dateEnd}`;
     }
     console.log(url);
     const response = await fetch(url);
@@ -55,5 +70,6 @@ const fetchDepartments = async (setDepartments: React.Dispatch<React.SetStateAct
         console.error(e);
     }
 };
+
 
 export {searchArtworkByTitle, getArtworkDataById, searchArtworkByFilters, fetchDepartments};
