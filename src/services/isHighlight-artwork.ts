@@ -31,14 +31,14 @@ const UseisHighlightArtwork = () => {
     useEffect(() => {
         const getArtworkIfisHighlight = async () => {
             try {
-                const response = await fetch('https://collectionapi.metmuseum.org/public/collection/v1/search?isHighlight=true&q=""');
+                const response = await fetch('https://collectionapi.metmuseum.org/public/collection/v1/search?isHighlight=true&hasImage=true&q=""');
                 if (!response.ok) {
                     throw new Error('API response not OK');
                 }
                 const searchData: SearchInterface = await response.json();
                 const shuffledIDs = shuffle([...searchData.objectIDs]);
                 const artworks: Section[] = [];
-                for (let i = 0; i < 4; i++) {
+                for (let i = 0; i < 12; i++) {
                     const artworkData = await getArtworkDataById(shuffledIDs[i]);
                     if (artworkData !== undefined) {
                         artworks.push(artworkData);
