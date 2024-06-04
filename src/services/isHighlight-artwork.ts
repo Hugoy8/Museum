@@ -56,4 +56,4 @@ const UseisHighlightArtwork = () => {
     return {dataHighlight, isLoading};
 }
 
-export default UseisHighlightArtwork;
+export {UseisHighlightArtwork, getArtworkDataById} ;

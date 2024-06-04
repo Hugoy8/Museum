@@ -19,7 +19,6 @@ function Search() {
 
     const [isHighlight, setIsHighlight] = useState(false);
     const [hasImages, setHasImages] = useState(false);
-    const [tags, setTags] = useState(false);
     const [departmentId, setDepartmentId] = useState<number | null>(null);
     const [departments, setDepartments] = useState<string[]>([]);
     const [geoLocation, setGeoLocation] = useState('');
@@ -60,7 +59,7 @@ function Search() {
 
         setLoading(true);
         try {
-            const results = await searchArtworkByFilters(searchTerm ? searchTerm : " ", isHighlight, hasImages, departmentId, geoLocation, dateBegin, dateEnd, tags);
+            const results = await searchArtworkByFilters(searchTerm ? searchTerm : " ", isHighlight, hasImages, departmentId, geoLocation, dateBegin, dateEnd);
             setAllResults(results);
             setCurrentPage(1);
             fetchArtworks(results, 1);
@@ -136,16 +135,6 @@ function Search() {
                             className="form-checkbox"
                         />
                         <span className="ml-2">Has Images</span>
-                    </label>
-                    <label className="inline-flex items-center">
-                        <input
-                            type="checkbox"
-                            name="tags"
-                            checked={tags}
-                            onChange={(e) => setTags(e.target.checked)}
-                            className="form-checkbox"
-                        />
-                        <span className="ml-2">Tags</span>
                     </label>
                     <select
                         name="departmentId"

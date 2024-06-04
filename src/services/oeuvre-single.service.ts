@@ -33,7 +33,7 @@ const useArtworkById = () => {
     return { data, isLoading };
 }
 
-const getDepartmentId = async (departmentName: string) => {
+const getDepartmentId = async (departmentName: string)  => {
     const response = await fetch('https://collectionapi.metmuseum.org/public/collection/v1/departments');
     if (!response.ok) {
         throw new Error('API response not OK');

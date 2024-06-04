@@ -29,7 +29,7 @@ const getArtworkDataById = async (id: number) => {
     }
 }
 
-const searchArtworkByFilters = async (title: string, isHighlight: boolean, hasImages: boolean, departmentId: number | null, geoLocation: string, dateBegin: number | null, dateEnd: number | null, titleFilter: boolean, artistOrCultureFilter: boolean, tagsFilter: boolean): Promise<number[]> => {
+const searchArtworkByFilters = async (title: string, isHighlight: boolean, hasImages: boolean, departmentId: number | null, geoLocation: string, dateBegin: number | null, dateEnd: number | null): Promise<number[]> => {
     let url = `https://collectionapi.metmuseum.org/public/collection/v1/search?q=${title}`;
     if (isHighlight) {
         url += `&isHighlight=true`;
@@ -49,16 +49,6 @@ const searchArtworkByFilters = async (title: string, isHighlight: boolean, hasIm
     if (dateEnd) {
         url += `&dateEnd=${dateEnd}`;
     }
-    if (titleFilter) {
-        url += `&title=true`;
-    }
-    if (artistOrCultureFilter) {
-        url += `&artistOrCulture=true`;
-    }
-    if (tagsFilter) {
-        url += `&tags=true`;
-    }
-    console.log(url);
     const response = await fetch(url);
     if (!response.ok) {
         throw new Error('API response not OK');
