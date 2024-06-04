@@ -2,6 +2,8 @@ import OeuvreSection from "../../components/oeuvre/oeuvre-section.tsx";
 import Statistics from "../../components/statistics/statistics.tsx";
 import UseisHighlightArtwork from "../../services/isHighlight-artwork.ts";
 import {Section} from "../interfaces/section.interface.ts";
+import notFoundArtistImage from '../../assets/not-found/artist.png';
+import Loader from "../../components/loader/loader.tsx";
 
 function Home() {
     const dataHighlight : Section[] = UseisHighlightArtwork();
@@ -70,6 +72,7 @@ function Home() {
 
     return (
         <>
+            <Loader></Loader>
             <OeuvreSection title="Les nouveautés"></OeuvreSection>
             <OeuvreSection title="Les populaires" datas={dataHighlight}></OeuvreSection>
             <div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-48 lg:px-8">
@@ -80,7 +83,7 @@ function Home() {
                 <ul role="list" className="mx-auto mt-20 grid max-w-2xl grid-cols-2 gap-x-8 gap-y-16 text-center sm:grid-cols-3 md:grid-cols-4 lg:mx-0 lg:max-w-none lg:grid-cols-5 xl:grid-cols-6">
                     {authorsList.map((authorElement) => (
                         <li>
-                            <img className="mx-auto h-24 w-24 rounded-full object-cover" src={authorElement.pictureUrl} alt=""/>
+                            <img className="mx-auto h-24 w-24 rounded-full object-cover" src={authorElement.pictureUrl} onError={({ currentTarget }) => {currentTarget.onerror = null; currentTarget.src=notFoundArtistImage;}} alt=""/>
                             <h3 className="mt-4 text-center text-base font-semibold leading-7 tracking-tight dark:text-white text-gray-900">{authorElement.name}</h3>
                             <p className="text-sm text-center leading-6 text-gray-600 dark:text-gray-300">{authorElement.typeOfOeuvre}</p>
                         </li>
