@@ -1,21 +1,41 @@
 import OeuvreSection from "../../components/oeuvre/oeuvre-section.tsx";
-import useArtworkById from "../../services/oeuvre-single.service.ts";
+import { useArtworkById, getDepartmentId, fetchSimilarArtworks } from '../../services/oeuvre-single.service';
 import {ArtworkInterface} from "../interfaces/oeuvre-single.interface.ts";
-import {useEffect} from "react";
 import {Link, useNavigate, useParams} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
+import Loader from "../../components/loader/loader.tsx";
+import {Section} from "../interfaces/section.interface.ts";
 
 function OeuvreSingle() {
   const { data, isLoading } : { data: ArtworkInterface | null, isLoading: boolean } = useArtworkById();
+  const [similarArtworks, setSimilarArtworks] = useState<Section[]>([]);
+  const [isLoadingSuggestion, setIsLoadingSuggestion] = useState<boolean>(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isLoading && data === null) {
-      navigate(`/`)
-    }
+    const fetchArtworks = async () => {
+      if (!isLoading && data === null) {
+        navigate(`/`)
+      }
+      const departmentId = await getDepartmentId(data?.department || "");
+      const query = data?.artistDisplayName ? data?.artistDisplayName : data?.title;
+      const encodedQuery = encodeURIComponent(query || "").replace(/%20/g, "+");
+      const { artworks, isLoadingSuggestion } = await fetchSimilarArtworks(departmentId, encodedQuery, data?.objectID);
+      setIsLoadingSuggestion(isLoadingSuggestion);
+      setSimilarArtworks(artworks);
+    };
+
+    fetchArtworks().then(r => console.log(r)).catch(e => console.error(e));
   }, [data, navigate, isLoading]);
+
   const noDataFound : string = "Aucune donnée trouvée"
   return (
       <>
+        {isLoading && isLoadingSuggestion ? (
+            <Loader></Loader>
+        ) : (
+            <>
           <div className="pt-12">
             <div className="pt-6">
               <nav aria-label="Breadcrumb">
@@ -165,6 +185,10 @@ function OeuvreSingle() {
                         <span className="text-base font-medium text-gray-900 dark:text-white">Date d'acquisition</span>
                         <span className="text-sm text-gray-600 dark:text-gray-500">{data?.accessionYear || noDataFound}</span>
                       </div>
+                      <p className="text-sm text-gray-600">Tags
+                        : {data?.tags ? data.tags.map((tag, index) => <span
+                            key={index}>{tag.term}</span>) : noDataFound}
+                      </p>
                     </div>
                   </div>
 
@@ -212,8 +236,7 @@ function OeuvreSingle() {
 
                     <div className="flex flex-col gap-2 mt-10">
                       <h2 className="text-xl font-medium text-gray-900 dark:text-white">Licence</h2>
-                      <span
-                          className="tracking-tight text-gray-600 dark:text-gray-500">{data?.rightsAndReproduction || 'Aucune licence pour le moment'} </span>
+                      <span className="tracking-tight text-gray-600 dark:text-gray-500">{data?.rightsAndReproduction || 'Aucune licence pour le moment'} </span>
                     </div>
                   </div>
 
@@ -232,7 +255,16 @@ function OeuvreSingle() {
               </div>
             </div>
           </div>
-        <OeuvreSection title="Recommandations par rapport à vos recherches"></OeuvreSection>
+        <OeuvreSection title="Recommandations par rapport à vos recherches" datas={similarArtworks}></OeuvreSection>
+              {similarArtworks.length === 0 && (
+                  <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
+                    <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
+                      <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">Aucune recommandation trouvée</h1>
+                    </div>
+                    </div>
+                )}
+            </>
+        )}
       </>
   )
 }

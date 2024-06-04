@@ -25,35 +25,35 @@ const getArtworkDataById = async (id: number) => {
 }
 
 const UseisHighlightArtwork = () => {
-    const [data, setData] = useState<Section[]>([]);
+    const [dataHighlight, setDataHighlight] = useState<Section[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const getArtworkIfisHighlight = async () => {
             try {
-                const response = await fetch('https://collectionapi.metmuseum.org/public/collection/v1/search?isHighlight=true&q=""');
+                const response = await fetch('https://collectionapi.metmuseum.org/public/collection/v1/search?isHighlight=true&hasImage=true&q=""');
                 if (!response.ok) {
                     throw new Error('API response not OK');
                 }
                 const searchData: SearchInterface = await response.json();
-                const shuffledIDs = shuffle([...searchData.objectIDs]); // Create a new array to ensure shuffle works correctly
+                const shuffledIDs = shuffle([...searchData.objectIDs]);
                 const artworks: Section[] = [];
-                for (let i = 0; i < 4; i++) {
+                for (let i = 0; i < 12; i++) {
                     const artworkData = await getArtworkDataById(shuffledIDs[i]);
                     if (artworkData !== undefined) {
                         artworks.push(artworkData);
                     }
                 }
-                setData(artworks);
+                setDataHighlight(artworks);
+                setIsLoading(false);
             } catch (e) {
                 console.error(e);
             }
         }
-        getArtworkIfisHighlight().then(r =>
-            console.log(r)
-        );
+        getArtworkIfisHighlight().then(r => console.log(r));
     }, []);
 
-    return data;
+    return {dataHighlight, isLoading};
 }
 
-export default UseisHighlightArtwork;
+export {UseisHighlightArtwork, getArtworkDataById} ;
