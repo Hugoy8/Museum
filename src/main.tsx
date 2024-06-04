@@ -9,9 +9,11 @@ import './styles.css'
 import OeuvreSingle from "./pages/oeuvre-single/oeuvre-single.tsx";
 import OeuvreList from "./components/oeuvre/oeuvre-list.tsx";
 import Search from "./pages/search/search.tsx";
+import {Toaster} from "sonner";
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
+      <Toaster position="bottom-center" richColors={true} closeButton={true} pauseWhenPageIsHidden={true} />
       <BrowserRouter>
           <div className="app bg-white dark:bg-gray-900">
               <Header />
