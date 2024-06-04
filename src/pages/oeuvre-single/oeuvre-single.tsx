@@ -170,6 +170,10 @@ function OeuvreSingle() {
                         Accessible au public
                         : {data?.isPublicDomain !== undefined ? (data.isPublicDomain ? "Oeuvre accessible au public" : "Oeuvre non accessible au public") : noDataFound}
                       </p>
+                      <p className="text-sm text-gray-600">Tags
+                        : {data?.tags ? data.tags.map((tag, index) => <span
+                            key={index}>{tag.term}</span>) : noDataFound}
+                      </p>
                     </div>
                   </div>
                 </div>
