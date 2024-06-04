@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import {
     getArtworkDataById,
     searchArtworkByFilters,
-    fetchDepartments, handleDateValidation
+    fetchDepartments
 } from "../../services/search.service.tsx";
 import { ArtworkInterface } from "../interfaces/oeuvre-single.interface.ts";
 import Oeuvre from "../../components/oeuvre/oeuvre.tsx";
@@ -18,6 +18,7 @@ function Search() {
 
     const [isHighlight, setIsHighlight] = useState(false);
     const [hasImages, setHasImages] = useState(false);
+    const [tags, setTags] = useState(false);
     const [departmentId, setDepartmentId] = useState<number | null>(null);
     const [departments, setDepartments] = useState<string[]>([]);
     const [geoLocation, setGeoLocation] = useState('');
@@ -58,11 +59,12 @@ function Search() {
 
         setLoading(true);
         try {
-            const results = await searchArtworkByFilters(searchTerm ? searchTerm : " ", isHighlight, hasImages, departmentId, geoLocation, dateBegin, dateEnd);
+            const results = await searchArtworkByFilters(searchTerm ? searchTerm : " ", isHighlight, hasImages, departmentId, geoLocation, dateBegin, dateEnd, tags);
             setAllResults(results);
             setCurrentPage(1);
             fetchArtworks(results, 1);
         } catch (e) {
+            console.error(e);
             setError('Une erreur s\'est produite lors de la récupération des œuvres d\'art.');
         } finally {
             setLoading(false);
@@ -133,6 +135,16 @@ function Search() {
                             className="form-checkbox"
                         />
                         <span className="ml-2">Has Images</span>
+                    </label>
+                    <label className="inline-flex items-center">
+                        <input
+                            type="checkbox"
+                            name="tags"
+                            checked={tags}
+                            onChange={(e) => setTags(e.target.checked)}
+                            className="form-checkbox"
+                        />
+                        <span className="ml-2">Tags</span>
                     </label>
                     <select
                         name="departmentId"
