@@ -13,7 +13,7 @@ function OeuvreSection(props: {title: string, nameButton?: string, datas?: Secti
               </a>
             </div>
 
-              <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-4 md:gap-y-0 lg:gap-x-8">
+              <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-4 lg:gap-x-8">
                   {props.datas?.map((data, index) => (
                       <Oeuvre
                           key={index}
