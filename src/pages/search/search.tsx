@@ -37,7 +37,7 @@ function Search() {
             let localIsHighlight = isHighlight;
             let localDepartmentId = departmentId;
 
-            const searchTermParams = params.get('searchTerm');
+            const searchTermParams = params.get('search');
             const isHighlightParams = params.get('highlight');
             const departmentIdParams = params.get('departmentId');
             if (searchTermParams) {
