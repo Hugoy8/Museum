@@ -50,6 +50,7 @@ const searchArtworkByFilters = async (title: string, isHighlight: boolean, hasIm
     if (dateEnd) {
         url += `&dateEnd=${dateEnd}`;
     }
+    console.log(url);
     const response = await fetch(url);
     if (!response.ok) {
         toast.error('Failed to fetch artwork data by search filters');

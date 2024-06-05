@@ -1,7 +1,8 @@
 import Oeuvre from "./oeuvre.tsx";
 import {Section} from "../../pages/interfaces/section.interface.ts";
+import {Link} from "react-router-dom";
 
-function OeuvreSection(props: {title: string, nameButton?: string, datas?: Section[]}) {
+function OeuvreSection(props: {title: string, nameButton?: string, datas?: Section[], redirection?: string}) {
     return (
         <div>
           <div className="mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
@@ -27,10 +28,12 @@ function OeuvreSection(props: {title: string, nameButton?: string, datas?: Secti
               </div>
 
               <div className="mt-8 text-sm md:hidden">
-                  <a href="#" className="font-medium dark:text-indigo-400 text-indigo-600 hover:text-indigo-500">
-                      {props.nameButton == undefined ? "Découvrir" : props.nameButton}
-                      <span aria-hidden="true"> &rarr;</span>
-                  </a>
+                  <Link to={`/search/${props.redirection}`}>
+                      <a className="font-medium dark:text-indigo-400 text-indigo-600 hover:text-indigo-500">
+                          {props.nameButton == undefined ? "Découvrir" : props.nameButton}
+                          <span aria-hidden="true"> &rarr;</span>
+                      </a>
+                  </Link>
               </div>
           </div>
         </div>
