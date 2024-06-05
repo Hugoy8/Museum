@@ -32,7 +32,7 @@ function OeuvreSingle() {
     };
 
     fetchArtworks().then(r => console.log(r)).catch(e => console.error(e));
-  }, [data, navigate, isLoading]);
+  }, [data, navigate, isLoading, isLoadingSuggestion]);
 
   const noDataFound : string = "Aucune donnée trouvée"
   return (

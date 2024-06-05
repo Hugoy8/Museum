@@ -24,6 +24,7 @@ function Search() {
     const [geoLocation, setGeoLocation] = useState('');
     const [dateBegin, setDateBegin] = useState<number | null>(null);
     const [dateEnd, setDateEnd] = useState<number | null>(null);
+    const [artistOrCulture, setArtistOrCulture] = useState(false);
 
     const artworksPerPage = 20;
     useEffect(() => {
@@ -43,6 +44,7 @@ function Search() {
         if (type === 'checkbox') {
             if (name === 'isHighlight') setIsHighlight(checked);
             if (name === 'hasImages') setHasImages(checked);
+            if (name === 'artistOrCulture') setArtistOrCulture(checked);
         } else if (name === 'departmentId') {
             setDepartmentId(value ? parseInt(value) : null);
         }
@@ -196,44 +198,43 @@ function Search() {
                                onChange={(e) => setDateEnd(e.target.value ? parseInt(e.target.value) : null)}
                                className="block dark:text-white dark:bg-white/5 dark:ring-white/10 w-full rounded-md border-0 py-1.5 px-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                placeholder="Date End"/>
-
-                    </div>
-                    <div className="flex w-full mt-3">
-                        <div className="flex items-center me-4">
-                            <input id="image" type="checkbox" value=""
-                                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
-                                   name="hasImages"
-                                   checked={hasImages}
-                                   onChange={handleFilterChange}/>
-                            <label htmlFor="image"
-                                   className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                                Contient des images
-                            </label>
-                        </div>
-                        <div className="flex items-center me-4">
-                            <input id="highLight" type="checkbox" value=""
-                                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
-                                   name="isHighlight"
-                                   checked={isHighlight}
-                                   onChange={handleFilterChange}/>
-                            <label htmlFor="highLight"
-                                   className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                                Populaire
-                            </label>
-                        </div>
-                        <div className="flex items-center me-4">
-                            <input id="highLight" type="checkbox" value=""
-                                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
-                                   name="isHighlight"
-                                   checked={isHighlight}
-                                   onChange={handleFilterChange}/>
-                            <label htmlFor="highLight"
-                                   className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                                Artistes ou cultures
-                            </label>
-                        </div>
-                    </div>
-                </div>
+                                </div>
+                                <div className="flex w-full mt-3">
+                                    <div className="flex items-center me-4">
+                                        <input id="image" type="checkbox" value=""
+                                               className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
+                                               name="hasImages"
+                                               checked={hasImages}
+                                               onChange={handleFilterChange}/>
+                                        <label htmlFor="image"
+                                               className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                            Contient des images
+                                        </label>
+                                    </div>
+                                    <div className="flex items-center me-4">
+                                        <input id="highLight" type="checkbox" value=""
+                                               className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
+                                               name="isHighlight"
+                                               checked={isHighlight}
+                                               onChange={handleFilterChange}/>
+                                        <label htmlFor="highLight"
+                                               className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                            Populaire
+                                        </label>
+                                    </div>
+                                    <div className="flex items-center me-4">
+                                        <input id="artistOrCulture" type="checkbox" value=""
+                                               className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
+                                               name="artistOrCulture"
+                                               checked={artistOrCulture}
+                                               onChange={handleFilterChange}/>
+                                        <label htmlFor="artistOrCulture"
+                                               className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                            Artistes ou Cultures
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
             </form>
 
             {searchStatus && (
