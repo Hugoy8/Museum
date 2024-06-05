@@ -1,22 +1,30 @@
+import {Link} from "react-router-dom";
+
 function Footer() {
     return (
         <footer>
             <div className="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8">
                 <nav className="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12" aria-label="Footer">
                     <div className="pb-6">
-                        <a href="#" className="text-sm leading-6 text-gray-600 dark:text-gray-300 dark:hover:text-white hover:text-gray-900">Oeuvres</a>
+                        <Link to={"/oeuvres"}>
+                            <a className="text-sm leading-6 text-gray-600 dark:text-gray-300 dark:hover:text-white hover:text-gray-900">Oeuvres</a>
+                        </Link>
                     </div>
                     <div className="pb-6">
-                        <a href="#" className="text-sm leading-6 text-gray-600 dark:text-gray-300 dark:hover:text-white hover:text-gray-900">Où nous trouver ?</a>
+                        <a href="https://maps.app.goo.gl/Lesk7T89sx3p5qb98" target="_blank" className="text-sm leading-6 text-gray-600 dark:text-gray-300 dark:hover:text-white hover:text-gray-900">Où nous trouver ?</a>
                     </div>
                     <div className="pb-6">
-                        <a href="#" className="text-sm leading-6 text-gray-600 dark:text-gray-300 dark:hover:text-white hover:text-gray-900">Rechercher</a>
+                        <Link to={"/search"}>
+                            <a className="text-sm leading-6 text-gray-600 dark:text-gray-300 dark:hover:text-white hover:text-gray-900">Rechercher</a>
+                        </Link>
                     </div>
                     <div className="pb-6">
                         <a href="#" className="text-sm leading-6 text-gray-600 dark:text-gray-300 dark:hover:text-white hover:text-gray-900">Mentions légales</a>
                     </div>
                     <div className="pb-6">
-                        <a href="#" className="text-sm leading-6 text-gray-600 dark:text-gray-300 dark:hover:text-white hover:text-gray-900">A Propos</a>
+                        <Link to={"/about"}>
+                            <a className="text-sm leading-6 text-gray-600 dark:text-gray-300 dark:hover:text-white hover:text-gray-900">A Propos</a>
+                        </Link>
                     </div>
                 </nav>
                 <div className="mt-10 flex justify-center space-x-10">

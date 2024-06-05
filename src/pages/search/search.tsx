@@ -129,7 +129,7 @@ function Search() {
         <>
             <div className="relative mt-12 sm:mt-12 xl:mx-auto xl:max-w-7xl xl:px-8">
                 <img src="https://images.unsplash.com/photo-1572953109213-3be62398eb95?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" className="aspect-[5/2] w-full object-cover xl:rounded-3xl"/>
-                <span className="absolute top-1/2 left-1/2 text-white text-6xl font-bold dark:text-white tracking-tight whitespace-nowrap" style={{transform: "translate(-50%, -50%)"}}>Une recherche personnalisé</span>
+                <span className="absolute top-1/2 left-1/2 text-white text-6xl font-bold dark:text-white tracking-tight text-center" style={{transform: "translate(-50%, -50%)"}}>Une recherche personnalisé</span>
             </div>
             <form className="mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8 pt-24" onSubmit={handleSearchSubmit}>
                 <label className="block text-sm font-medium leading-6 text-gray-900 dark:text-white">Votre recherche</label>
