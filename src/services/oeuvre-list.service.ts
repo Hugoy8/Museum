@@ -1,5 +1,5 @@
 import {toast} from "sonner";
-import {Section} from "../pages/interfaces/section.interface.ts";
+import {Section} from "../models/section.interface.ts";
 import {getArtworkDataById} from "./isHighlight-artwork.ts";
 
 const getAllArtworkByDepartment = async (departmentId: number) => {

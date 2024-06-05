@@ -1,7 +1,7 @@
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {ArtworkInterface} from "../pages/interfaces/oeuvre-single.interface.ts";
-import {Section} from "../pages/interfaces/section.interface.ts";
+import {ArtworkInterface} from "../models/oeuvre-single.interface.ts";
+import {Section} from "../models/section.interface.ts";
 import {toast} from "sonner";
 
 const useArtworkById = () => {

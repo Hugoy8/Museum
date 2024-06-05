@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { ArtworkInterface } from "../pages/interfaces/oeuvre-single.interface.ts";
-import {SearchInterface} from "../pages/interfaces/search.interface.ts";
-import {Section} from "../pages/interfaces/section.interface.ts";
+import { ArtworkInterface } from "../models/oeuvre-single.interface.ts";
+import {SearchInterface} from "../models/search.interface.ts";
+import {Section} from "../models/section.interface.ts";
 import {toast} from "sonner";
 
 function shuffle(array: number[]) {

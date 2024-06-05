@@ -5,7 +5,7 @@ import {
     fetchDepartments, Department
 } from "../../services/search.service.tsx";
 import Oeuvre from "../../components/oeuvre/oeuvre.tsx";
-import { artworkResultSearch } from "../interfaces/search.interface.ts";
+import { artworkResultSearch } from "../../models/search.interface.ts";
 import Loader from "../../components/loader/loader.tsx";
 import { toast } from 'sonner'
 
