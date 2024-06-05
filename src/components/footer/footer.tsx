@@ -59,7 +59,7 @@ function Footer() {
                         </svg>
                     </a>
                 </div>
-                <p className="mt-10 text-center text-xs leading-5 dark:text-gray-300 text-gray-500">&copy; 2024 Museum. Tous droits réservés.</p>
+                <p className="mt-10 text-center text-xs leading-5 dark:text-gray-300 text-gray-500">&copy; 2024 The MET. Tous droits réservés.</p>
             </div>
         </footer>
     )
