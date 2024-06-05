@@ -95,7 +95,7 @@ function Search() {
 
     const handlePageChange = (newPage: number) => {
         setCurrentPage(newPage);
-        fetchArtworks(allResults, newPage);
+        fetchArtworks(allResults, newPage).then(r => console.log(r));
     };
 
     const generatePageNumbers = (currentPage: number, totalPages: number) => {

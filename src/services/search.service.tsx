@@ -14,7 +14,7 @@ const searchArtworkByTitle = async (title: string): Promise<number[]> => {
 const getArtworkDataById = async (id: number) => {
     const response = await fetch('https://collectionapi.metmuseum.org/public/collection/v1/objects/' + id);
     if (!response.ok) {
-        toast.error('Failed to fetch artwork data by id');
+        return undefined;
     }
     try {
         const data: ArtworkInterface = await response.json();
