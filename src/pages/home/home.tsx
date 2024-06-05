@@ -7,7 +7,7 @@ import {useEffect, useState} from "react";
 import {getArtworkByDepartment, getArtworkFromArtists} from "../../services/home.service.ts";
 import {Section} from "../interfaces/section.interface.ts";
 import {getDepartmentId} from "../../services/oeuvre-single.service.ts";
-import {getArtworkDataById, UseisHighlightArtwork} from "../../services/isHighlight-artwork.ts";
+import { UseisHighlightArtwork} from "../../services/isHighlight-artwork.ts";
 
 
 function Home() {
@@ -86,7 +86,7 @@ function Home() {
                     </div>
                     <Statistics
                         title="Des statistiques qui choquent"
-                        description="Lorem ipsum dolor sit amet consect adipisicing possimus."
+                        description="Découvrez les chiffres du marché de l'art en 2021, des chiffres qui ne laissent pas indifférents"
                         information={[
                             {
                                 title: "États-Unis",
