@@ -129,11 +129,11 @@ function Search() {
         <>
             <div className="relative mt-12 sm:mt-12 xl:mx-auto xl:max-w-7xl xl:px-8">
                 <img src="https://images.unsplash.com/photo-1572953109213-3be62398eb95?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" className="aspect-[5/2] w-full object-cover xl:rounded-3xl"/>
-                <span className="absolute top-1/2 left-1/2 text-white text-6xl font-bold dark:text-white tracking-tight text-center" style={{transform: "translate(-50%, -50%)"}}>Une recherche personnalisé</span>
+                <span className="absolute top-1/2 left-1/2 text-white max-sm:text-2xl lg:text-6xl text-4xl font-bold dark:text-white tracking-tight text-center" style={{transform: "translate(-50%, -50%)"}}>Une recherche personnalisé</span>
             </div>
             <form className="mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8 pt-24" onSubmit={handleSearchSubmit}>
                 <label className="block text-sm font-medium leading-6 text-gray-900 dark:text-white">Votre recherche</label>
-                <div className="flex justify-center items-end gap-x-1 w-full">
+                <div className="flex justify-center items-end gap-x-1 w-full max-sm:flex-col max-sm:gap-y-2">
                     <div className="relative mt-2 rounded-md shadow-sm w-full">
                         <div
                             className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -146,12 +146,12 @@ function Search() {
                             </svg>
                         </div>
                         <input type="text" name="search" id="search"
-                               className="block w-full dark:text-white dark:bg-white/5 dark:ring-white/10 rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                               className="block w-full dark:text-white dark:bg-white/5 dark:ring-white/10 rounded-md border-0 py-1.5 pr-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                placeholder="Rechercher une oeuvre d'art parmis toutes les oeuvres disponibles ...."
                                value={searchTerm} onChange={handleSearchChange}/>
                     </div>
                     <button type="submit"
-                            className="inline-flex items-center gap-x-1.5 rounded-md bg-indigo-600 dark:bg-indigo-500 px-3 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                            className="inline-flex max-sm:w-full max-sm:justify-center items-center gap-x-1.5 rounded-md bg-indigo-600 dark:bg-indigo-500 px-3 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                         Rechercher
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
                              fill="none"
@@ -166,24 +166,37 @@ function Search() {
                 <div className="flex flex-col mt-4">
                     <label className="block text-sm font-medium leading-6 text-gray-900 dark:text-white">Filtres
                         disponibles</label>
-                    <div className="flex justify-center items-end gap-x-2 w-full mt-2">
-                        <select id="department"
-                                name="departmentId"
-                                value={departmentId || ''}
-                                onChange={handleFilterChange}
-                                className="block dark:bg-white/5 dark:ring-white/10 dark:text-white w-full rounded-md border-0 py-2 pl-2 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                            <option value="">Select Department</option>
-                            {departments.map(department  => (
-                                <option key={department.departmentId} value={department.departmentId}>
-                                    {department.displayName}
-                                </option>
-                            ))}
-                        </select>
-                        <input type="text" name="geoLocation" id="geo_location" value={geoLocation} onChange={handleGeoLocationChange} className="block dark:text-white dark:bg-white/5 dark:ring-white/10 w-full rounded-md border-0 py-1.5 px-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Geo Location"/>
-                        <input type="number" name="dateBegin" value={dateBegin || ''} onChange={(e) => setDateBegin(e.target.value ? parseInt(e.target.value) : null)} className="block dark:text-white dark:bg-white/5 dark:ring-white/10 w-full rounded-md border-0 py-1.5 px-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Date Begin"/>
-                        <input type="number" name="dateEnd" value={dateEnd || ''} onChange={(e) => setDateEnd(e.target.value ? parseInt(e.target.value) : null)} className="block dark:text-white dark:bg-white/5 dark:ring-white/10 w-full rounded-md border-0 py-1.5 px-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Date End"/>
+                    <div className="flex justify-center max-lg:flex-col items-end gap-x-2 gap-y-2 w-full mt-2">
+                        <div className="flex w-full gap-x-2 gap-y-2 max-sm:flex-col">
+                            <select id="department" name="departmentId" value={departmentId || ''}
+                                    onChange={handleFilterChange}
+                                    className="block dark:bg-white/5 dark:ring-white/10 dark:text-white w-full rounded-md border-0 py-2 pl-2 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                <option value="">Select Department</option>
+                                {departments.map(department => (
+                                    <option key={department.departmentId} value={department.departmentId}>
+                                        {department.displayName}
+                                    </option>
+                                ))}
+                            </select>
+                            <input type="text" name="geoLocation" id="geo_location" value={geoLocation}
+                                   onChange={handleGeoLocationChange}
+                                   className="block dark:text-white dark:bg-white/5 dark:ring-white/10 w-full rounded-md border-0 py-1.5 px-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                   placeholder="Geo Location"/>
+
+                        </div>
+                        <div className="flex w-full gap-x-2 gap-y-2 max-sm:flex-col">
+                            <input type="number" name="dateBegin" value={dateBegin || ''}
+                                   onChange={(e) => setDateBegin(e.target.value ? parseInt(e.target.value) : null)}
+                                   className="block dark:text-white dark:bg-white/5 dark:ring-white/10 w-full rounded-md border-0 py-1.5 px-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                   placeholder="Date Begin"/>
+                            <input type="number" name="dateEnd" value={dateEnd || ''}
+                                   onChange={(e) => setDateEnd(e.target.value ? parseInt(e.target.value) : null)}
+                                   className="block dark:text-white dark:bg-white/5 dark:ring-white/10 w-full rounded-md border-0 py-1.5 px-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                   placeholder="Date End"/>
+
+                        </div>
                     </div>
-                    <div className="flex w-full mt-3">
+                    <div className="flex flex-wrap gap-y-3 w-full mt-3">
                         <div className="flex items-center me-4">
                             <input id="image" type="checkbox" value=""
                                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
