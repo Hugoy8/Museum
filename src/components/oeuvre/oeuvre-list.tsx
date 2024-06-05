@@ -52,7 +52,7 @@ function OeuvreList() {
                 ].map(artwork => artwork.ObjectID);
 
                 setAllResults(allArtworks);
-                setTotalPages(Math.ceil(allArtworks.length / artworksPerPage));
+                setTotalPages(Math.ceil(allResults.length / artworksPerPage));
                 fetchArtworks(allArtworks, currentPage);
             } catch (error) {
                 toast.error('Une erreur s\'est produite lors de la récupération des œuvres d\'art.');
