@@ -1,4 +1,4 @@
-import {ArtworkInterface} from "../pages/interfaces/oeuvre-single.interface.ts";
+import {ArtworkInterface} from "../models/oeuvre-single.interface.ts";
 import {toast} from "sonner";
 
 /**
