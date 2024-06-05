@@ -179,62 +179,46 @@ function Search() {
                                 </option>
                             ))}
                         </select>
-                        <input type="text"
-                               name="geoLocation"
-                               id="geo_location"
-                               value={geoLocation}
-                               onChange={handleGeoLocationChange}
-                               className="block dark:text-white dark:bg-white/5 dark:ring-white/10 w-full rounded-md border-0 py-1.5 px-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                               placeholder="Geo Location"/>
-                        <input type="number"
-                               name="dateBegin"
-                               value={dateBegin || ''}
-                               onChange={(e) => setDateBegin(e.target.value ? parseInt(e.target.value) : null)}
-                               className="block dark:text-white dark:bg-white/5 dark:ring-white/10 w-full rounded-md border-0 py-1.5 px-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                               placeholder="Date Begin"/>
-                        <input type="number"
-                               name="dateEnd"
-                               value={dateEnd || ''}
-                               onChange={(e) => setDateEnd(e.target.value ? parseInt(e.target.value) : null)}
-                               className="block dark:text-white dark:bg-white/5 dark:ring-white/10 w-full rounded-md border-0 py-1.5 px-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                               placeholder="Date End"/>
-                                </div>
-                                <div className="flex w-full mt-3">
-                                    <div className="flex items-center me-4">
-                                        <input id="image" type="checkbox" value=""
-                                               className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
-                                               name="hasImages"
-                                               checked={hasImages}
-                                               onChange={handleFilterChange}/>
-                                        <label htmlFor="image"
-                                               className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                                            Contient des images
-                                        </label>
-                                    </div>
-                                    <div className="flex items-center me-4">
-                                        <input id="highLight" type="checkbox" value=""
-                                               className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
-                                               name="isHighlight"
-                                               checked={isHighlight}
-                                               onChange={handleFilterChange}/>
-                                        <label htmlFor="highLight"
-                                               className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                                            Populaire
-                                        </label>
-                                    </div>
-                                    <div className="flex items-center me-4">
-                                        <input id="artistOrCulture" type="checkbox" value=""
-                                               className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
-                                               name="artistOrCulture"
-                                               checked={artistOrCulture}
-                                               onChange={handleFilterChange}/>
-                                        <label htmlFor="artistOrCulture"
-                                               className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                                            Artistes ou Cultures
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
+                        <input type="text" name="geoLocation" id="geo_location" value={geoLocation} onChange={handleGeoLocationChange} className="block dark:text-white dark:bg-white/5 dark:ring-white/10 w-full rounded-md border-0 py-1.5 px-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Geo Location"/>
+                        <input type="number" name="dateBegin" value={dateBegin || ''} onChange={(e) => setDateBegin(e.target.value ? parseInt(e.target.value) : null)} className="block dark:text-white dark:bg-white/5 dark:ring-white/10 w-full rounded-md border-0 py-1.5 px-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Date Begin"/>
+                        <input type="number" name="dateEnd" value={dateEnd || ''} onChange={(e) => setDateEnd(e.target.value ? parseInt(e.target.value) : null)} className="block dark:text-white dark:bg-white/5 dark:ring-white/10 w-full rounded-md border-0 py-1.5 px-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Date End"/>
+                    </div>
+                    <div className="flex w-full mt-3">
+                        <div className="flex items-center me-4">
+                            <input id="image" type="checkbox" value=""
+                                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
+                                   name="hasImages"
+                                   checked={hasImages}
+                                   onChange={handleFilterChange}/>
+                            <label htmlFor="image"
+                                   className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                Contient des images
+                            </label>
+                        </div>
+                        <div className="flex items-center me-4">
+                            <input id="highLight" type="checkbox" value=""
+                                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
+                                   name="isHighlight"
+                                   checked={isHighlight}
+                                   onChange={handleFilterChange}/>
+                            <label htmlFor="highLight"
+                                   className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                Populaire
+                            </label>
+                        </div>
+                        <div className="flex items-center me-4">
+                            <input id="artistOrCulture" type="checkbox" value=""
+                                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
+                                   name="artistOrCulture"
+                                   checked={artistOrCulture}
+                                   onChange={handleFilterChange}/>
+                            <label htmlFor="artistOrCulture"
+                                   className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                Artistes ou Cultures
+                            </label>
+                        </div>
+                    </div>
+                </div>
             </form>
 
             {searchStatus && (
