@@ -27,7 +27,6 @@ function Search() {
     const [geoLocation, setGeoLocation] = useState('');
     const [dateBegin, setDateBegin] = useState<number | null>(null);
     const [dateEnd, setDateEnd] = useState<number | null>(null);
-    const [artistOrCulture, setArtistOrCulture] = useState(false);
 
     const artworksPerPage = 20;
 
@@ -90,7 +89,6 @@ function Search() {
             const checked = inputElement.checked;
             if (name === 'isHighlight') setIsHighlight(checked);
             if (name === 'hasImages') setHasImages(checked);
-            if (name === 'artistOrCulture') setArtistOrCulture(checked);
         } else if (name === 'departmentId') {
             setDepartmentId(value ? parseInt(value) : null);
         }
@@ -118,7 +116,6 @@ function Search() {
             setAllResults(results);
             setCurrentPage(1);
             await fetchArtworks(results, 1);
-            console.log("results");
             if (results.length == 0 && !loading){
                 toast.warning('Aucun résultat trouvé pour votre recherche.');
             }
@@ -158,7 +155,7 @@ function Search() {
      */
     const handlePageChange = (newPage: number) => {
         setCurrentPage(newPage);
-        fetchArtworks(allResults, newPage).then(r => console.log(r));
+        fetchArtworks(allResults, newPage)
     };
 
     /**

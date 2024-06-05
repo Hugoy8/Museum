@@ -40,7 +40,7 @@ function Home() {
             setArtworksFromArtists(artworksFromArtists);
 
         };
-        fetchData().then(r => console.log(r));
+        fetchData()
     }, []);
     return (
         <>

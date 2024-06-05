@@ -6,6 +6,7 @@ import {useEffect, useState} from "react";
 import Loader from "../../components/loader/loader.tsx";
 import {Section} from "../../models/section.interface.ts";
 import {Carousel} from "react-responsive-carousel";
+import {toast} from "sonner";
 
 /**
  * OeuvreSingle component
@@ -52,7 +53,7 @@ function OeuvreSingle() {
       setSimilarArtworks(artworks);
     };
 
-    fetchArtworks().then(r => console.log(r)).catch(e => console.error(e));
+    fetchArtworks().catch(e => toast.error(e));
   }, [data, navigate, isLoading, isLoadingSuggestion]);
 
   const noDataFound : string = "Aucune donnée trouvée"
