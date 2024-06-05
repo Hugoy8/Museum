@@ -10,6 +10,7 @@ import OeuvreSingle from "./pages/oeuvre-single/oeuvre-single.tsx";
 import OeuvreList from "./components/oeuvre/oeuvre-list.tsx";
 import Search from "./pages/search/search.tsx";
 import {Toaster} from "sonner";
+import About from "./pages/about/about.tsx";
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -22,6 +23,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                       <Route path="/" element={<Home />}></Route>
                       <Route path="/search" element={<Search />}></Route>
                       <Route path="/oeuvres" element={<OeuvreList />}></Route>
+                      <Route path="/about" element={<About />}></Route>
                       <Route path="/oeuvre/:id" element={<OeuvreSingle />}></Route>
                       <Route path="*" element={<NotFound />}></Route>
                   </Routes>

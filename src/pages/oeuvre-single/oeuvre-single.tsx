@@ -7,15 +7,21 @@ import Loader from "../../components/loader/loader.tsx";
 import {Section} from "../interfaces/section.interface.ts";
 
 function OeuvreSingle() {
+  const navigate = useNavigate();
+
+  if (useParams<{ id: string }>() == undefined ) {
+    navigate(`/404`)
+  }
+
   const { data, isLoading } : { data: ArtworkInterface | null, isLoading: boolean } = useArtworkById();
   const [similarArtworks, setSimilarArtworks] = useState<Section[]>([]);
   const [isLoadingSuggestion, setIsLoadingSuggestion] = useState<boolean>(true);
-  const navigate = useNavigate();
+
 
   useEffect(() => {
     const fetchArtworks = async () => {
       if (!isLoading && data === null) {
-        navigate(`/`)
+        navigate(`/404`)
       }
       const departmentId = await getDepartmentId(data?.department || "");
       const query = data?.artistDisplayName ? data?.artistDisplayName : data?.title;

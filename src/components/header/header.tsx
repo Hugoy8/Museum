@@ -29,8 +29,9 @@ function Header() {
                 <a className="text-sm font-semibold leading-6 text-gray-900 dark:text-white dark:hover:text-gray-300">Oeuvres</a>
               </Link>
               <a className="text-sm font-semibold leading-6 text-gray-900 dark:text-white dark:hover:text-gray-300">Actualité</a>
-              <a className="text-sm font-semibold leading-6 text-gray-900 dark:text-white dark:hover:text-gray-300">A
-                Propos</a>
+              <Link to="/about">
+                <a className="text-sm font-semibold leading-6 text-gray-900 dark:text-white dark:hover:text-gray-300">A Propos</a>
+              </Link>
             </div>
             <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-4 align-middle">
               <Link to="/search">
@@ -71,8 +72,9 @@ function Header() {
                       <a className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:text-white dark:hover:text-gray-300">Oeuvres</a>
                     </Link>
                     <a className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:text-white dark:hover:text-gray-300">Actualité</a>
-                    <a className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:text-white dark:hover:text-gray-300">A
-                      Propos</a>
+                    <Link to="/about">
+                      <a className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:text-white dark:hover:text-gray-300">A Propos</a>
+                    </Link>
                   </div>
                 </div>
               </div>

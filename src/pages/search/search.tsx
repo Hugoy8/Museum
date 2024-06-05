@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import {
     getArtworkDataById,
     searchArtworkByFilters,
-    fetchDepartments
+    fetchDepartments, Department
 } from "../../services/search.service.tsx";
 import Oeuvre from "../../components/oeuvre/oeuvre.tsx";
 import { artworkResultSearch } from "../interfaces/search.interface.ts";
@@ -20,7 +20,7 @@ function Search() {
     const [isHighlight, setIsHighlight] = useState(false);
     const [hasImages, setHasImages] = useState(false);
     const [departmentId, setDepartmentId] = useState<number | null>(null);
-    const [departments, setDepartments] = useState<string[]>([]);
+    const [departments, setDepartments] = useState<Department[]>([]);
     const [geoLocation, setGeoLocation] = useState('');
     const [dateBegin, setDateBegin] = useState<number | null>(null);
     const [dateEnd, setDateEnd] = useState<number | null>(null);
@@ -219,6 +219,17 @@ function Search() {
                             <label htmlFor="highLight"
                                    className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                                 Populaire
+                            </label>
+                        </div>
+                        <div className="flex items-center me-4">
+                            <input id="highLight" type="checkbox" value=""
+                                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
+                                   name="isHighlight"
+                                   checked={isHighlight}
+                                   onChange={handleFilterChange}/>
+                            <label htmlFor="highLight"
+                                   className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                Artistes ou cultures
                             </label>
                         </div>
                     </div>
