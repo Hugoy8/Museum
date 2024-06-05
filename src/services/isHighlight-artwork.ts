@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
-import { ArtworkInterface } from "../pages/interfaces/oeuvre-single.interface.ts";
-import {SearchInterface} from "../pages/interfaces/search.interface.ts";
-import {Section} from "../pages/interfaces/section.interface.ts";
+import { ArtworkInterface } from "../models/oeuvre-single.interface.ts";
+import {SearchInterface} from "../models/search.interface.ts";
+import {Section} from "../models/section.interface.ts";
 import {toast} from "sonner";
 
+/**
+ * Shuffle an array
+ * @param array - Array to shuffle
+ */
 function shuffle(array: number[]) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -12,6 +16,10 @@ function shuffle(array: number[]) {
     return array;
 }
 
+/**
+ * Get artwork data by ID
+ * @param id - Artwork ID
+ */
 const getArtworkDataById = async (id: number) => {
     const response = await fetch('https://collectionapi.metmuseum.org/public/collection/v1/objects/' + id);
     if (!response.ok) {
@@ -25,6 +33,9 @@ const getArtworkDataById = async (id: number) => {
     }
 }
 
+/**
+ * Get artwork if isHighlight
+ */
 const UseisHighlightArtwork = () => {
     const [dataHighlight, setDataHighlight] = useState<Section[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);

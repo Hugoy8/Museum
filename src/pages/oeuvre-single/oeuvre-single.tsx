@@ -1,11 +1,15 @@
 import OeuvreSection from "../../components/oeuvre/oeuvre-section.tsx";
 import { useArtworkById, getDepartmentId, fetchSimilarArtworks } from '../../services/oeuvre-single.service';
-import {ArtworkInterface, Tag} from "../interfaces/oeuvre-single.interface.ts";
+import {ArtworkInterface, Tag} from "../../models/oeuvre-single.interface.ts";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import Loader from "../../components/loader/loader.tsx";
-import {Section} from "../interfaces/section.interface.ts";
+import {Section} from "../../models/section.interface.ts";
+import {Carousel} from "react-responsive-carousel";
 
+/**
+ * OeuvreSingle component
+ */
 function OeuvreSingle() {
   const navigate = useNavigate();
 
@@ -16,9 +20,26 @@ function OeuvreSingle() {
   const { data, isLoading } : { data: ArtworkInterface | null, isLoading: boolean } = useArtworkById();
   const [similarArtworks, setSimilarArtworks] = useState<Section[]>([]);
   const [isLoadingSuggestion, setIsLoadingSuggestion] = useState<boolean>(true);
-
+  const getConfigurableProps = () => ({
+      showArrows: true,
+      showStatus: false,
+      showIndicators: true,
+      infiniteLoop: true,
+      showThumbs: false,
+      useKeyboardArrows: true,
+      autoPlay: false,
+      stopOnHover: true,
+      swipeable: true,
+      dynamicHeight: true,
+      emulateTouch: true,
+      autoFocus: false,
+      transitionTime: 300,
+  });
 
   useEffect(() => {
+    /**
+     * Fetch data from the API for a specific artwork
+     */
     const fetchArtworks = async () => {
       if (!isLoading && data === null) {
         navigate(`/404`)
@@ -37,19 +58,18 @@ function OeuvreSingle() {
   const noDataFound : string = "Aucune donnée trouvée"
   return (
       <>
-        {isLoading && isLoadingSuggestion ? (
+        {isLoading ? (
             <Loader></Loader>
         ) : (
             <>
-              <div className="pt-12">
+              <div className="lg:pt-12">
                 <div className="pt-6">
                   <nav aria-label="Breadcrumb">
-                    <ol role="list"
-                        className="mx-auto flex items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+                    <ol role="list" className="mx-auto flex items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
                       <li>
                         <div className="flex items-center">
                           <Link to={'/oeuvres'}>
-                            <a href="#" className="mr-2 text-sm font-medium dark:text-white text-gray-900">Oeuvres</a>
+                            <a className="mr-2 text-sm font-medium dark:text-white text-gray-900">Oeuvres</a>
                           </Link>
                           <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" aria-hidden="true"
                                className="h-5 w-4 text-gray-300">
@@ -57,7 +77,7 @@ function OeuvreSingle() {
                           </svg>
                         </div>
                       </li>
-                      {data?.objectName != undefined && (
+                      {(data?.objectName != undefined && data?.objectName != '') && (
                         <li>
                           <div className="flex items-center">
                             <a href="#"
@@ -72,49 +92,29 @@ function OeuvreSingle() {
 
                       <li className="text-sm">
                         <a aria-current="page"
-                           className="font-medium dark:text-gray-400 dark:hover:text-white text-gray-500 hover:text-gray-600">{data?.title || ('Oeuvre n°' + useParams<{ id: string }>().id)}</a>
+                           className="font-medium  dark:text-gray-400 dark:hover:text-white text-gray-500 hover:text-gray-600">{data?.title || ('Oeuvre n°' + useParams<{ id: string }>().id)}</a>
                       </li>
                     </ol>
                   </nav>
 
-                  <div className="mx-auto mt-6 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-                    {data?.additionalImages && data.additionalImages.length > 0 ? (
-                        <>
-                          <div
-                              className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
+                  <div className="mx-auto mt-6 sm:px-6 lg:max-w-7xl lg:px-8">
+                    <Carousel {...getConfigurableProps()}>
+                      {data?.primaryImage && (
+                          <div className="sm:overflow-hidden sm:rounded-lg">
                             <img
-                                src={data?.primaryImage || "https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-02.jpg"}
+                                src={data?.primaryImage}
                                 alt="Artwork image" className="h-full w-full object-cover object-center"/>
                           </div>
-                          <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
-                            <div
-                                className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
-                              <img
-                                  src={data?.additionalImages[0] || "https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-02.jpg"}
-                                  alt="Artwork image" className="h-full w-full object-cover object-center"/>
-                            </div>
-                            <div
-                                className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
-                              <img
-                                  src={data?.additionalImages[1] || "https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-02.jpg"}
-                                  alt="Artwork image" className="h-full w-full object-cover object-center"/>
-                            </div>
-                          </div>
-                          <div
-                              className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
+                      )}
+
+                      {data?.additionalImages?.map((image: string, index: number) =>
+                          <div key={index} className="sm:overflow-hidden sm:rounded-lg">
                             <img
-                                src={data?.additionalImages[2] || "https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-02.jpg"}
+                                src={image}
                                 alt="Artwork image" className="h-full w-full object-cover object-center"/>
                           </div>
-                        </>
-                    ) : (
-                        <div
-                            className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg lg:col-span-3">
-                          <img
-                              src={data?.primaryImage || "https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-02.jpg"}
-                              alt="Artwork image" className="h-full w-full object-cover object-center"/>
-                        </div>
-                    )}
+                      )}
+                    </Carousel>
                   </div>
 
                   <div className="mx-auto px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
@@ -268,8 +268,12 @@ function OeuvreSingle() {
                   </div>
                 </div>
               </div>
-              {similarArtworks.length != 0 && (
-                  <OeuvreSection title="Recommandations par rapport à vos recherches" datas={similarArtworks}></OeuvreSection>
+              {isLoadingSuggestion ? (
+                  <Loader></Loader>
+              ) : (
+                  similarArtworks.length > 0 && (
+                      <OeuvreSection title="Recommandations par rapport à vos recherches" datas={similarArtworks}></OeuvreSection>
+                  )
               )}
           </>
         )}

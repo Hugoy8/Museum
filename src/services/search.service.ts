@@ -1,6 +1,10 @@
-import {ArtworkInterface} from "../pages/interfaces/oeuvre-single.interface.ts";
+import {ArtworkInterface} from "../models/oeuvre-single.interface.ts";
 import {toast} from "sonner";
 
+/**
+ * Search artwork by title
+ * @param title - Artwork title
+ */
 const searchArtworkByTitle = async (title: string): Promise<number[]> => {
     const response = await fetch(`https://collectionapi.metmuseum.org/public/collection/v1/search?q=${title}`);
     if (!response.ok) {
@@ -11,6 +15,10 @@ const searchArtworkByTitle = async (title: string): Promise<number[]> => {
 }
 
 
+/**
+ * Get artwork data by ID
+ * @param id - Artwork ID
+ */
 const getArtworkDataById = async (id: number) => {
     const response = await fetch('https://collectionapi.metmuseum.org/public/collection/v1/objects/' + id);
     if (!response.ok) {
@@ -30,6 +38,16 @@ const getArtworkDataById = async (id: number) => {
     }
 }
 
+/**
+ * Search artwork by filters
+ * @param title - Artwork title
+ * @param isHighlight - Is artwork a highlight
+ * @param hasImages - Does artwork have images
+ * @param departmentId - Department ID
+ * @param geoLocation - Geo location
+ * @param dateBegin - Start date
+ * @param dateEnd - End date
+ */
 const searchArtworkByFilters = async (title: string, isHighlight: boolean, hasImages: boolean, departmentId: number | null, geoLocation: string, dateBegin: number | null, dateEnd: number | null): Promise<number[]> => {
     let url = `https://collectionapi.metmuseum.org/public/collection/v1/search?q=${title}`;
     if (isHighlight) {
@@ -60,6 +78,10 @@ const searchArtworkByFilters = async (title: string, isHighlight: boolean, hasIm
 };
 
 
+/**
+ * Fetch the list of departments
+ * @param setDepartments - Set departments
+ */
 const fetchDepartments = async (setDepartments: React.Dispatch<React.SetStateAction<Department[]>>) => {
     const response = await fetch('https://collectionapi.metmuseum.org/public/collection/v1/departments');
     if (!response.ok) {

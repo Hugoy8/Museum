@@ -1,14 +1,17 @@
-import {useState, useEffect, useRef} from 'react';
+import {useState, useEffect} from 'react';
 import {
     getArtworkDataById,
     searchArtworkByFilters,
     fetchDepartments, Department
-} from "../../services/search.service.tsx";
+} from "../../services/search.service.ts";
 import Oeuvre from "../../components/oeuvre/oeuvre.tsx";
-import { artworkResultSearch } from "../interfaces/search.interface.ts";
+import { artworkResultSearch } from "../../models/search.interface.ts";
 import Loader from "../../components/loader/loader.tsx";
 import { toast } from 'sonner'
 
+/**
+ * Search component
+ */
 function Search() {
     const [searchTerm, setSearchTerm] = useState('');
     const [allResults, setAllResults] = useState<number[]>([]);
@@ -33,29 +36,53 @@ function Search() {
         const params = new URLSearchParams(window.location.search);
         if (params) {
 
-            const searchTermParams = params.get('searchTerm');
+            let localSearchTerm = searchTerm;
+            let localIsHighlight = isHighlight;
+            let localDepartmentId = departmentId;
 
+            const searchTermParams = params.get('search');
             const isHighlightParams = params.get('highlight');
             const departmentIdParams = params.get('departmentId');
-            if (searchTermParams) setSearchTerm(searchTermParams);
-            if (isHighlightParams) setIsHighlight(isHighlightParams === 'true');
-            if (departmentIdParams) setDepartmentId(parseInt(departmentIdParams));
+            if (searchTermParams) {
+                setSearchTerm(searchTermParams);
+                localSearchTerm = searchTermParams;
+            }
+            if (isHighlightParams) {
+                setIsHighlight(isHighlightParams === 'true');
+                localIsHighlight = isHighlightParams === 'true';
+            }
+            if (departmentIdParams) {
+                setDepartmentId(parseInt(departmentIdParams));
+                localDepartmentId = parseInt(departmentIdParams);
+            }
 
             if (searchTermParams || isHighlightParams || departmentIdParams) {
-                handleSearchSubmit(new Event('submit')).then(r => r);
+                handleSearchSubmit(new Event('submit'), localSearchTerm, localIsHighlight, localDepartmentId).then(r => r);
             }
         }
 
     }, [isHighlight, departmentId, searchTerm]);
 
+    /**
+     * Handle search change
+     * @param event - Event
+     */
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(event.target.value);
     };
 
+    /**
+     * Handle geo location change
+     * @param event - Event
+     */
     const handleGeoLocationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setGeoLocation(event.target.value);
     };
 
+    /**
+     * Handle filter change
+     * @param event - Event
+     */
     const handleFilterChange = (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
         const { name, value, type } = event.target;
         if (type === 'checkbox') {
@@ -69,7 +96,14 @@ function Search() {
         }
     };
 
-    const handleSearchSubmit = async (event: Event) => {
+    /**
+     * Handle search submit
+     * @param event - Event
+     * @param localSearchTerm - search value in search input
+     * @param localIsHighlight - isHighlight value in checkbox
+     * @param localDepartmentId - departmentId value in select
+     */
+    const handleSearchSubmit = async (event: any, localSearchTerm: string = searchTerm, localIsHighlight: boolean = isHighlight, localDepartmentId: number | null = departmentId) => {
         event.preventDefault();
         setSearchStatus(true);
 
@@ -80,11 +114,12 @@ function Search() {
 
         setLoading(true);
         try {
-            const results = await searchArtworkByFilters(searchTerm ? searchTerm : " ", isHighlight, hasImages, departmentId, geoLocation, dateBegin, dateEnd);
+            const results = await searchArtworkByFilters(localSearchTerm ? localSearchTerm : " ", localIsHighlight, hasImages, localDepartmentId, geoLocation, dateBegin, dateEnd);
             setAllResults(results);
             setCurrentPage(1);
             await fetchArtworks(results, 1);
-            if (results.length == 0){
+            console.log("results");
+            if (results.length == 0 && !loading){
                 toast.warning('Aucun résultat trouvé pour votre recherche.');
             }
         } catch (e) {
@@ -93,8 +128,13 @@ function Search() {
             setLoading(false);
             window.history.replaceState({}, '', window.location.pathname);
         }
-    };
+};
 
+    /**
+     * Fetch artworks by results
+     * @param results - Results of search
+     * @param page - Page number
+     */
     const fetchArtworks = async (results: number[], page: number) => {
         setLoading(true);
         try {
@@ -112,11 +152,20 @@ function Search() {
         }
     };
 
+    /**
+     * Handle page change
+     * @param newPage - New page number
+     */
     const handlePageChange = (newPage: number) => {
         setCurrentPage(newPage);
         fetchArtworks(allResults, newPage).then(r => console.log(r));
     };
 
+    /**
+     * Generate page numbers for pagination
+     * @param currentPage - Current page number
+     * @param totalPages - Total pages number
+     */
     const generatePageNumbers = (currentPage: number, totalPages: number) => {
         const pages = [1, 2, 3, totalPages - 2, totalPages - 1, totalPages];
 
@@ -148,7 +197,7 @@ function Search() {
         <>
             <div className="relative mt-12 sm:mt-12 xl:mx-auto xl:max-w-7xl xl:px-8">
                 <img src="https://images.unsplash.com/photo-1572953109213-3be62398eb95?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" className="aspect-[5/2] w-full object-cover xl:rounded-3xl"/>
-                <span className="absolute top-1/2 left-1/2 text-white max-sm:text-2xl lg:text-6xl text-4xl font-bold dark:text-white tracking-tight text-center" style={{transform: "translate(-50%, -50%)"}}>Une recherche personnalisé</span>
+                <span className="absolute top-1/2 left-1/2 text-white max-sm:text-2xl lg:text-6xl text-4xl font-bold dark:text-white tracking-tight text-center" style={{transform: "translate(-50%, -50%)"}}>Faites votre recherche personnalisée</span>
             </div>
             <form className="mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8 pt-24" onSubmit={handleSearchSubmit}>
                 <label className="block text-sm font-medium leading-6 text-gray-900 dark:text-white">Votre recherche</label>
@@ -190,7 +239,7 @@ function Search() {
                             <select id="department" name="departmentId" value={departmentId || ''}
                                     onChange={handleFilterChange}
                                     className="block dark:bg-white/5 dark:ring-white/10 dark:text-white w-full rounded-md border-0 py-2 pl-2 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                <option value="">Select Department</option>
+                                <option value="">Sélectionnez un département</option>
                                 {departments.map(department => (
                                     <option key={department.departmentId} value={department.departmentId}>
                                         {department.displayName}
@@ -238,17 +287,6 @@ function Search() {
                                 Populaire
                             </label>
                         </div>
-                        <div className="flex items-center me-4">
-                            <input id="artistOrCulture" type="checkbox" value=""
-                                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
-                                   name="artistOrCulture"
-                                   checked={artistOrCulture}
-                                   onChange={handleFilterChange}/>
-                            <label htmlFor="artistOrCulture"
-                                   className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                                Artistes ou Cultures
-                            </label>
-                        </div>
                     </div>
                 </div>
             </form>
@@ -256,7 +294,7 @@ function Search() {
             {searchStatus && (
                 <div className="mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
                     <div className="md:flex md:items-center md:justify-between">
-                        <h2 className="text-2xl font-bold dark:text-white tracking-tight text-gray-900">Résultat de
+                        <h2 className="text-2xl font-bold dark:text-white tracking-tight text-gray-900">Résultat(s) de
                             votre recherche</h2>
                     </div>
 

@@ -1,6 +1,9 @@
 import theMetLogo from '../../assets/partners/themet.png';
 import louvreLogo from '../../assets/partners/louvre.png';
 
+/**
+ * About page component
+ */
 function About() {
     return (
         <>
