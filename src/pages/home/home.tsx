@@ -5,9 +5,9 @@ import Loader from "../../components/loader/loader.tsx";
 import {authorsList} from "./auhtorList.ts";
 import {useEffect, useState} from "react";
 import {getArtworkByDepartment, getArtworkFromArtists} from "../../services/home.service.ts";
-import {Section} from "../interfaces/section.interface.ts";
+import {Section} from "../../models/section.interface.ts";
 import {getDepartmentId} from "../../services/oeuvre-single.service.ts";
-import { UseisHighlightArtwork} from "../../services/isHighlight-artwork.ts";
+import {UseisHighlightArtwork} from "../../services/isHighlight-artwork.ts";
 
 /**
  * Home component
@@ -18,6 +18,7 @@ function Home() {
     const [artworkAncientNearEasternArtDepartment, setArtworkAncientNearEasternArtDepartment] = useState<Section[]>([]);
     const [artworksDrawingsAndPrints, setArtworksDrawingsAndPrints] = useState<Section[]>([]);
     const [artworksFromArtists, setArtworksFromArtists] = useState<Section[]>([]);
+
     useEffect(() => {
         /**
          * Fetch data from the API with different departments and artists
@@ -54,13 +55,10 @@ function Home() {
                 <Loader></Loader>
             ) : (
                 <>
-                    <OeuvreSection title="Les populaires" datas={dataHighlight}></OeuvreSection>
-                    <OeuvreSection title="Ancient Near Eastern Art"
-                                   datas={artworkAncientNearEasternArtDepartment}></OeuvreSection>
-                    <OeuvreSection title="Arts of Africa, Oceania, and the Americas"
-                                   datas={artsofAfricaOceaniaAmericasDepartment}></OeuvreSection>
-                    <OeuvreSection title="Drawings and Prints" datas={artworksDrawingsAndPrints}></OeuvreSection>
-
+                    <OeuvreSection title="Les populaires" datas={dataHighlight} redirection={{type: 'highlight', data: true}}></OeuvreSection>
+                    <OeuvreSection title="Ancient Near Eastern Art" datas={artworkAncientNearEasternArtDepartment} redirection={{type: 'departmentId', data: 3}}></OeuvreSection>
+                    <OeuvreSection title="Arts of Africa, Oceania, and the Americas" datas={artsofAfricaOceaniaAmericasDepartment} redirection={{type: 'departmentId', data: 5}}></OeuvreSection>
+                    <OeuvreSection title="Drawings and Prints" datas={artworksDrawingsAndPrints} redirection={{type: 'departmentId', data: 9}}></OeuvreSection>
 
                     <div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-48 lg:px-8">
                         <div className="mx-auto max-w-2xl lg:mx-0">
@@ -83,7 +81,7 @@ function Home() {
                             ))}
                         </ul>
                     </div>
-                    <OeuvreSection title="Les oeuvres de ces artistes" nameButton="En savoir plus" datas={artworksFromArtists}></OeuvreSection>
+                    <OeuvreSection title="Les oeuvres de ces artistes" nameButton="En savoir plus" datas={artworksFromArtists} redirection={{type: 'search', data: true}}></OeuvreSection>
                     <div className="mt-32 sm:mt-40 xl:mx-auto xl:max-w-7xl xl:px-8">
                         <img
                             src="https://images.unsplash.com/photo-1637578035851-c5b169722de1?q=80&w=2121&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
