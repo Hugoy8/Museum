@@ -11,6 +11,7 @@ import OeuvreList from "./components/oeuvre/oeuvre-list.tsx";
 import Search from "./pages/search/search.tsx";
 import {Toaster} from "sonner";
 import About from "./pages/about/about.tsx";
+import Actuality from "./pages/actuality/actuality.tsx";
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -24,6 +25,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                       <Route path="/search" element={<Search />}></Route>
                       <Route path="/oeuvres" element={<OeuvreList />}></Route>
                       <Route path="/about" element={<About />}></Route>
+                      <Route path="/actuality" element={<Actuality />}></Route>
                       <Route path="/oeuvre/:id" element={<OeuvreSingle />}></Route>
                       <Route path="*" element={<NotFound />}></Route>
                   </Routes>

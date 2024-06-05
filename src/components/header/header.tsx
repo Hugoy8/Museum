@@ -12,7 +12,11 @@ function Header() {
     }
 
     const handleSearchSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        navigate('/search?searchTerm=' + event.currentTarget.value);
+        if (event.currentTarget.search.value == '' || event.currentTarget.search.value == undefined) {
+            navigate('/search');
+        } else {
+            navigate('/search?searchTerm=' + event.currentTarget.value);
+        }
 
         setTimeout((): void => {
             setStatusHeaderMenu(false);
