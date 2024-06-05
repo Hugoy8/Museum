@@ -38,7 +38,7 @@ function Home() {
     }, []);
     return (
         <>
-            <div className="relative mt-12 sm:mt-12 xl:mx-auto xl:max-w-7xl xl:px-8">
+            <div className="relative mt-8 sm:mt-12 xl:mx-auto xl:max-w-7xl xl:px-8">
                 <img src="https://images.unsplash.com/photo-1616432725307-b93cc6098dc5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" className="aspect-[5/2] w-full object-cover xl:rounded-3xl"/>
                 <span
                     className="absolute top-1/2 left-1/2 text-white text-center max-sm:text-2xl lg:text-6xl text-4xl font-bold dark:text-white tracking-tight"
