@@ -1,12 +1,13 @@
 import {Link} from "react-router-dom";
+import notFoundOeuvreImage from '../../assets/not-found/oeuvre.png';
 
 function Oeuvre(props: {id: number, title: string, author: string, date: string, picture: string}) {
     return (
         <div className="group relative">
-          <div className="h-56 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:h-72 xl:h-80">
-            <img src={props.picture} alt="Hand stitched, orange leather long wallet." className="h-full w-full object-cover object-center"/>
+          <div className="h-56 w-full overflow-hidden rounded-md group-hover:opacity-75 lg:h-72 xl:h-80">
+            <img src={props.picture} alt={props.title} className="h-full w-full object-cover object-center" onError={({ currentTarget }) => {currentTarget.onerror = null; currentTarget.src=notFoundOeuvreImage;}}/>
           </div>
-          <h3 className="mt-4 text-sm text-gray-700 dark:text-gray-600">
+          <h3 className="mt-4 text-sm text-gray-700 dark:text-gray-600 whitespace-nowrap w-full overflow-hidden overflow-ellipsis">
               <Link to={"/oeuvre/" + props.id}>
                   <a>
                       <span className="absolute inset-0"></span>

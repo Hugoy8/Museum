@@ -1,6 +1,8 @@
 import Oeuvre from "./oeuvre.tsx";
+import {Section} from "../../pages/interfaces/section.interface.ts";
+import {Link} from "react-router-dom";
 
-function OeuvreSection(props: {title: string, nameButton?: string}) {
+function OeuvreSection(props: {title: string, nameButton?: string, datas?: Section[], redirection?: string}) {
     return (
         <div>
           <div className="mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
@@ -12,19 +14,27 @@ function OeuvreSection(props: {title: string, nameButton?: string}) {
               </a>
             </div>
 
-            <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-4 md:gap-y-0 lg:gap-x-8">
-                <Oeuvre id={2} title="Titre de l'oeuvre" author="Auteur" date="1990" picture="https://images.unsplash.com/photo-1605721911519-3dfeb3be25e7?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"></Oeuvre>
-                <Oeuvre id={2} title="Titre de l'oeuvre" author="Auteur" date="1990" picture="https://images.unsplash.com/photo-1605721911519-3dfeb3be25e7?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"></Oeuvre>
-                <Oeuvre id={2} title="Titre de l'oeuvre" author="Auteur" date="1990" picture="https://images.unsplash.com/photo-1605721911519-3dfeb3be25e7?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"></Oeuvre>
-                <Oeuvre id={2} title="Titre de l'oeuvre" author="Auteur" date="1990" picture="https://images.unsplash.com/photo-1605721911519-3dfeb3be25e7?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"></Oeuvre>
-            </div>
+              <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-4 lg:gap-x-8">
+                  {props.datas?.map((data, index) => (
+                      <Oeuvre
+                          key={index}
+                          id={data.ObjectID}
+                          title={data.title}
+                          author={data.artistDisplayName}
+                          date={data.objectDate}
+                          picture={data.primaryImage}
+                      />
+                  ))}
+              </div>
 
-            <div className="mt-8 text-sm md:hidden">
-              <a href="#" className="font-medium dark:text-indigo-400 text-indigo-600 hover:text-indigo-500">
-                {props.nameButton == undefined ? "Découvrir" : props.nameButton}
-                <span aria-hidden="true"> &rarr;</span>
-              </a>
-            </div>
+              <div className="mt-8 text-sm md:hidden">
+                  <Link to={`/search/${props.redirection}`}>
+                      <a className="font-medium dark:text-indigo-400 text-indigo-600 hover:text-indigo-500">
+                          {props.nameButton == undefined ? "Découvrir" : props.nameButton}
+                          <span aria-hidden="true"> &rarr;</span>
+                      </a>
+                  </Link>
+              </div>
           </div>
         </div>
     )
