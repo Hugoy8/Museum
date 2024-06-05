@@ -63,6 +63,7 @@ const fetchDepartments = async (setDepartments: React.Dispatch<React.SetStateAct
     const response = await fetch('https://collectionapi.metmuseum.org/public/collection/v1/departments');
     if (!response.ok) {
         toast.error('Failed to fetch department data');
+        return undefined;
     }
     try {
         const data = await response.json();

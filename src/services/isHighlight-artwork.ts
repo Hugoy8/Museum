@@ -31,7 +31,7 @@ const UseisHighlightArtwork = () => {
 
     useEffect(() => {
         const getArtworkIfisHighlight = async () => {
-            const response = await fetch('https://collectionapi.metmuseum.org/public/collection/v1/search?isHighlight=true&hasImage=true&q=""');
+            const response = await fetch('https://collectionapi.metmuseum.org/public/collection/v1/search?isHighlight=true&hasImages=true&q=""');
             if (!response.ok) {
                 toast.error('Failed to fetch artwork data');
             }
