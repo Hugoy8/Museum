@@ -60,7 +60,7 @@ const fetchSimilarArtworks = async (departmentId: number | undefined, search: st
         throw new Error('API response not OK');
     }
     const data = await response.json();
-    const suggestions = data.objectIDs.slice(0, 8);
+    const suggestions = data.objectIDs ? data.objectIDs.slice(0, 8) : [];
     if (currentArtwork !== undefined) {
         const index = suggestions.indexOf(currentArtwork);
         if (index > -1) {
