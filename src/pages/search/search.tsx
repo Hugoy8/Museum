@@ -29,7 +29,22 @@ function Search() {
     const artworksPerPage = 20;
     useEffect(() => {
         fetchDepartments(setDepartments).then(r => r);
-    }, []);
+        const params = new URLSearchParams(window.location.search);
+        if (params) {
+
+            const searchTermParams = params.get('searchTerm');
+            const isHighlightParams = params.get('highlight');
+            const departmentIdParams = params.get('departmentId');
+            if (searchTermParams) setSearchTerm(searchTerm);
+            if (isHighlightParams) setIsHighlight(isHighlightParams === 'true');
+            if (departmentIdParams) setDepartmentId(parseInt(departmentIdParams));
+
+            if (searchTermParams || isHighlightParams || departmentIdParams) {
+                handleSearchSubmit(new Event('submit')).then(r => r);
+            }
+        }
+
+    }, [isHighlight, departmentId, searchTerm]);
 
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(event.target.value);
@@ -40,8 +55,10 @@ function Search() {
     };
 
     const handleFilterChange = (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
-        const { name, value, type, checked } = event.target;
+        const { name, value, type } = event.target;
         if (type === 'checkbox') {
+            const inputElement = event.target as HTMLInputElement;
+            const checked = inputElement.checked;
             if (name === 'isHighlight') setIsHighlight(checked);
             if (name === 'hasImages') setHasImages(checked);
             if (name === 'artistOrCulture') setArtistOrCulture(checked);
@@ -50,7 +67,7 @@ function Search() {
         }
     };
 
-    const handleSearchSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSearchSubmit = async (event: Event) => {
         event.preventDefault();
         setSearchStatus(true);
 
@@ -65,7 +82,6 @@ function Search() {
             setAllResults(results);
             setCurrentPage(1);
             await fetchArtworks(results, 1);
-
             if (results.length == 0){
                 toast.warning('Aucun résultat trouvé pour votre recherche.');
             }
@@ -73,6 +89,7 @@ function Search() {
             toast.error('Une erreur s\'est produite lors de la récupération des œuvres d\'art.');
         } finally {
             setLoading(false);
+            window.history.replaceState({}, '', window.location.pathname);
         }
     };
 
@@ -85,7 +102,8 @@ function Search() {
 
             const artworkPromises = currentResults.map(id => getArtworkDataById(id));
             const artworkData = await Promise.all(artworkPromises);
-            setArtworks(artworkData.filter(data => data !== undefined));
+            setArtworks(artworkData.filter(data => data !== undefined) as artworkResultSearch[]);
+            console.log('after params', artworkData);
         } catch (e) {
             toast.error('Une erreur s\'est produite lors de la récupération des œuvres d\'art.');
         } finally {
@@ -113,7 +131,7 @@ function Search() {
 
         const uniquePages = Array.from(new Set(pages)).filter(page => page > 0 && page <= totalPages);
 
-        let pagesWithDots: (string | number)[] = [];
+        const pagesWithDots: (string | number)[] = [];
         uniquePages.forEach((page, index) => {
             if (index < uniquePages.length - 1 && uniquePages[index + 1] - page > 1) {
                 pagesWithDots.push(page, '...');

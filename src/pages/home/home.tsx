@@ -4,10 +4,10 @@ import notFoundArtistImage from '../../assets/not-found/artist.png';
 import Loader from "../../components/loader/loader.tsx";
 import {authorsList} from "./auhtorList.ts";
 import {useEffect, useState} from "react";
-import {getArtworkByDepartment} from "../../services/home.service.ts";
+import {getArtworkByDepartment, getArtworkFromArtists} from "../../services/home.service.ts";
 import {Section} from "../interfaces/section.interface.ts";
 import {getDepartmentId} from "../../services/oeuvre-single.service.ts";
-import {UseisHighlightArtwork} from "../../services/isHighlight-artwork.ts";
+import {getArtworkDataById, UseisHighlightArtwork} from "../../services/isHighlight-artwork.ts";
 
 
 function Home() {
@@ -15,6 +15,7 @@ function Home() {
     const [artsofAfricaOceaniaAmericasDepartment, setArtsOfAfricaOceaniaAmericasDepartment] = useState<Section[]>([]);
     const [artworkAncientNearEasternArtDepartment, setArtworkAncientNearEasternArtDepartment] = useState<Section[]>([]);
     const [artworksDrawingsAndPrints, setArtworksDrawingsAndPrints] = useState<Section[]>([]);
+    const [artworksFromArtists, setArtworksFromArtists] = useState<Section[]>([]);
     useEffect(() => {
         const fetchData = async () => {
             const artsofAfricaOceaniaAmericasDepartmentId = await getDepartmentId('Arts of Africa, Oceania, and the Americas');
@@ -28,6 +29,10 @@ function Home() {
             const drawingsAndPrintsDepartmentId = await getDepartmentId('Drawings and Prints');
             const artworksDrawingsAndPrints = await getArtworkByDepartment(drawingsAndPrintsDepartmentId);
             setArtworksDrawingsAndPrints(artworksDrawingsAndPrints);
+
+            const artworksFromArtists = await getArtworkFromArtists('Leonardo da Vinci');
+            setArtworksFromArtists(artworksFromArtists);
+
         };
         fetchData().then(r => console.log(r));
     }, []);
@@ -76,8 +81,7 @@ function Home() {
                             ))}
                         </ul>
                     </div>
-                    <OeuvreSection title="Les oeuvres de ces artistes" nameButton="En savoir plus"></OeuvreSection>
-
+                    <OeuvreSection title="Les oeuvres de ces artistes" nameButton="En savoir plus" datas={artworksFromArtists}></OeuvreSection>
                     <div className="mt-32 sm:mt-40 xl:mx-auto xl:max-w-7xl xl:px-8">
                         <img
                             src="https://images.unsplash.com/photo-1637578035851-c5b169722de1?q=80&w=2121&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
