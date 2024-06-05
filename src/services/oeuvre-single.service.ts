@@ -71,7 +71,7 @@ const fetchSimilarArtworks = async (departmentId: number | undefined, search: st
             suggestions.splice(index, 1);
         }
     }
-    const artworks: Section[] = await Promise.all(suggestions.map(async (id: number) => {
+    const artworks: Section[] = (await Promise.all(suggestions.map(async (id: number) => {
         const response = await fetch('https://collectionapi.metmuseum.org/public/collection/v1/objects/' + id);
         if (!response.ok) {
             toast.error('Failed to fetch artwork data');
@@ -85,7 +85,7 @@ const fetchSimilarArtworks = async (departmentId: number | undefined, search: st
             objectDate: artwork.objectDate,
             primaryImage: artwork.primaryImage
         };
-    }));
+    }))).filter(artwork => artwork !== undefined) as Section[];
     return { artworks, isLoadingSuggestion: false };
 };
 
