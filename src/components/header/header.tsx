@@ -42,6 +42,7 @@ function Header() {
               </Link>
             </div>
             <div className="hidden md:flex md:flex-1 md:justify-end gap-4 align-middle">
+
               <Link to="/search">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                      stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
@@ -87,9 +88,6 @@ function Header() {
                                 <Link to="/oeuvres" onClick={toggleHeaderMenu}>
                                   <a className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:hover:bg-gray-200/10 dark:text-white dark:hover:text-white">Oeuvres</a>
                                 </Link>
-                                <Link to="/search">
-                                  <a className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:hover:bg-gray-200/10 dark:text-white dark:hover:text-white">Recherche</a>
-                                </Link>
                                 <Link to="/actuality" onClick={toggleHeaderMenu}>
                                     <a className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:hover:bg-gray-200/10 dark:text-white dark:hover:text-white">Actualité</a>
                                 </Link>
@@ -98,6 +96,27 @@ function Header() {
                                 </Link>
                             </div>
                         </div>
+                    </div>
+                    <div className="flex flex-col gap-y-1 py-6">
+                        <div className="flex gap-x-2">
+                            <input type="text" name="search" id="search"
+                                   className="block dark:text-white dark:bg-white/5 dark:ring-white/10 w-full rounded-md border-0 py-1.5 px-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                   placeholder="Rechercher une oeuvre"/>
+                            <button type="submit"
+                                    className="inline-flex max-sm:justify-center items-center gap-x-1.5 rounded-md bg-indigo-600 dark:bg-indigo-500 px-3 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                     fill="none"
+                                     stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"
+                                     strokeLinejoin="round"
+                                     className="dark:hover:text-gray-300 dark:text-white lucide lucide-search">
+                                    <circle cx="11" cy="11" r="8"/>
+                                    <path d="m21 21-4.3-4.3"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <Link to={"/search"} onClick={toggleHeaderMenu}>
+                            <a className="text-indigo-600 dark:text-indigo-400 font-medium underline text-xs hover:no-underline">Recherche avancée</a>
+                        </Link>
                     </div>
                 </div>
               </div>
