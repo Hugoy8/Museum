@@ -57,7 +57,7 @@ const searchArtworkByFilters = async (title: string, isHighlight: boolean, hasIm
     return data.objectIDs || [];
 };
 
-const fetchDepartments = async (setDepartments: React.Dispatch<React.SetStateAction<string[]>>) => {
+const fetchDepartments = async (setDepartments: React.Dispatch<React.SetStateAction<Department[]>>) => {
     try {
         const response = await fetch('https://collectionapi.metmuseum.org/public/collection/v1/departments');
         if (!response.ok) {
@@ -69,6 +69,8 @@ const fetchDepartments = async (setDepartments: React.Dispatch<React.SetStateAct
         console.error(e);
     }
 };
+
+export interface Department { departmentId: number, displayName: string }
 
 
 export {searchArtworkByTitle, getArtworkDataById, searchArtworkByFilters, fetchDepartments};
