@@ -1,9 +1,6 @@
 /* Importation CSS */
 @import './stylesheet/root.css';
-@import './stylesheet/animation.css';
 @import './stylesheet/base.css';
-@import './stylesheet/svg.css';
-@import './stylesheet/buttons.css';
 
 /* Importation TailwindCSS */
 @tailwind base;

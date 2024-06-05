@@ -26,7 +26,7 @@ const getArtworkDataById = async (id: number) => {
             primaryImage: data.primaryImage
         };
     } catch (e) {
-        toast.error(e);
+        toast.error(e as string);
     }
 }
 
@@ -70,7 +70,7 @@ const fetchDepartments = async (setDepartments: React.Dispatch<React.SetStateAct
         const data = await response.json();
         setDepartments(data.departments);
     } catch (e) {
-        toast.error(e);
+        toast.error(e as string);
     }
 };
 
