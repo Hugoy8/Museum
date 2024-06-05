@@ -64,7 +64,7 @@ const UseisHighlightArtwork = () => {
                 toast.error(e as string);
             }
         }
-        getArtworkIfisHighlight().then(() => toast.success('Artwork data fetched successfully'));
+        getArtworkIfisHighlight();
     }, []);
 
     return {dataHighlight, isLoading};

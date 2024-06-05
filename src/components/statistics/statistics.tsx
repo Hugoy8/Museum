@@ -14,8 +14,8 @@ function Statistics({title, description, information}: StatisticsProps) {
                         <p className="text-center mt-4 text-lg leading-8 dark:text-gray-300 text-gray-600">{description}</p>
                     </div>
                     <dl className="mt-16 grid grid-cols-1 gap-0.5 overflow-hidden rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-4">
-                        {information.map((informationElement: { title: string; description: string; }) => (
-                            <div className="flex flex-col dark:bg-white/5 bg-gray-400/5 p-10">
+                        {information.map((informationElement: { title: string; description: string; }, index: number) => (
+                            <div key={index} className="flex flex-col dark:bg-white/5 bg-gray-400/5 p-10">
                                 <dt className="text-sm text-center font-semibold dark:text-gray-300 leading-6 text-gray-600">{informationElement.description}</dt>
                                 <dd className="order-first text-center dark:text-white text-3xl font-semibold tracking-tight text-gray-900">{informationElement.title}</dd>
                             </div>
