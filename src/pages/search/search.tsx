@@ -1,4 +1,4 @@
-import {useState, useEffect, useRef} from 'react';
+import {useState, useEffect} from 'react';
 import {
     getArtworkDataById,
     searchArtworkByFilters,
@@ -33,16 +33,28 @@ function Search() {
         const params = new URLSearchParams(window.location.search);
         if (params) {
 
-            const searchTermParams = params.get('searchTerm');
+            let localSearchTerm = searchTerm;
+            let localIsHighlight = isHighlight;
+            let localDepartmentId = departmentId;
 
+            const searchTermParams = params.get('searchTerm');
             const isHighlightParams = params.get('highlight');
             const departmentIdParams = params.get('departmentId');
-            if (searchTermParams) setSearchTerm(searchTermParams);
-            if (isHighlightParams) setIsHighlight(isHighlightParams === 'true');
-            if (departmentIdParams) setDepartmentId(parseInt(departmentIdParams));
+            if (searchTermParams) {
+                setSearchTerm(searchTermParams);
+                localSearchTerm = searchTermParams;
+            }
+            if (isHighlightParams) {
+                setIsHighlight(isHighlightParams === 'true');
+                localIsHighlight = isHighlightParams === 'true';
+            }
+            if (departmentIdParams) {
+                setDepartmentId(parseInt(departmentIdParams));
+                localDepartmentId = parseInt(departmentIdParams);
+            }
 
             if (searchTermParams || isHighlightParams || departmentIdParams) {
-                handleSearchSubmit(new Event('submit')).then(r => r);
+                handleSearchSubmit(new Event('submit'), localSearchTerm, localIsHighlight, localDepartmentId).then(r => r);
             }
         }
 
@@ -69,7 +81,7 @@ function Search() {
         }
     };
 
-    const handleSearchSubmit = async (event: any) => {
+    const handleSearchSubmit = async (event: any, localSearchTerm: string = searchTerm, localIsHighlight: boolean = isHighlight, localDepartmentId: number | null = departmentId) => {
         event.preventDefault();
         setSearchStatus(true);
 
@@ -80,11 +92,12 @@ function Search() {
 
         setLoading(true);
         try {
-            const results = await searchArtworkByFilters(searchTerm ? searchTerm : " ", isHighlight, hasImages, departmentId, geoLocation, dateBegin, dateEnd);
+            const results = await searchArtworkByFilters(localSearchTerm ? localSearchTerm : " ", localIsHighlight, hasImages, localDepartmentId, geoLocation, dateBegin, dateEnd);
             setAllResults(results);
             setCurrentPage(1);
             await fetchArtworks(results, 1);
-            if (results.length == 0){
+            console.log("results");
+            if (results.length == 0 && !loading){
                 toast.warning('Aucun résultat trouvé pour votre recherche.');
             }
         } catch (e) {
@@ -93,7 +106,7 @@ function Search() {
             setLoading(false);
             window.history.replaceState({}, '', window.location.pathname);
         }
-    };
+};
 
     const fetchArtworks = async (results: number[], page: number) => {
         setLoading(true);
