@@ -1,9 +1,10 @@
 import {ArtworkInterface} from "../pages/interfaces/oeuvre-single.interface.ts";
+import {toast} from "sonner";
 
 const searchArtworkByTitle = async (title: string): Promise<number[]> => {
     const response = await fetch(`https://collectionapi.metmuseum.org/public/collection/v1/search?q=${title}`);
     if (!response.ok) {
-        throw new Error('API response not OK');
+        toast.error('Failed to fetch artwork data by');
     }
     const data = await response.json();
     return data.objectIDs || [];
@@ -11,11 +12,11 @@ const searchArtworkByTitle = async (title: string): Promise<number[]> => {
 
 
 const getArtworkDataById = async (id: number) => {
+    const response = await fetch('https://collectionapi.metmuseum.org/public/collection/v1/objects/' + id);
+    if (!response.ok) {
+        toast.error('Failed to fetch artwork data by id');
+    }
     try {
-        const response = await fetch('https://collectionapi.metmuseum.org/public/collection/v1/objects/' + id);
-        if (!response.ok) {
-            throw new Error('API response not OK');
-        }
         const data: ArtworkInterface = await response.json();
         return {
             id: data.objectID,
@@ -25,7 +26,7 @@ const getArtworkDataById = async (id: number) => {
             primaryImage: data.primaryImage
         };
     } catch (e) {
-        console.error(e);
+        toast.error(e);
     }
 }
 
@@ -51,22 +52,22 @@ const searchArtworkByFilters = async (title: string, isHighlight: boolean, hasIm
     }
     const response = await fetch(url);
     if (!response.ok) {
-        throw new Error('API response not OK');
+        toast.error('Failed to fetch artwork data by search filters');
     }
     const data = await response.json();
     return data.objectIDs || [];
 };
 
 const fetchDepartments = async (setDepartments: React.Dispatch<React.SetStateAction<string[]>>) => {
+    const response = await fetch('https://collectionapi.metmuseum.org/public/collection/v1/departments');
+    if (!response.ok) {
+        toast.error('Failed to fetch department data');
+    }
     try {
-        const response = await fetch('https://collectionapi.metmuseum.org/public/collection/v1/departments');
-        if (!response.ok) {
-            throw new Error('Failed to fetch departments');
-        }
         const data = await response.json();
         setDepartments(data.departments);
     } catch (e) {
-        console.error(e);
+        toast.error(e);
     }
 };
 

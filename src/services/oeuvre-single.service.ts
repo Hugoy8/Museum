@@ -2,6 +2,7 @@ import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {ArtworkInterface} from "../pages/interfaces/oeuvre-single.interface.ts";
 import {Section} from "../pages/interfaces/section.interface.ts";
+import {toast} from "sonner";
 
 const useArtworkById = () => {
     const { id } = useParams<{ id: string }>();
@@ -36,7 +37,7 @@ const useArtworkById = () => {
 const getDepartmentId = async (departmentName: string)  => {
     const response = await fetch('https://collectionapi.metmuseum.org/public/collection/v1/departments');
     if (!response.ok) {
-        throw new Error('API response not OK');
+        toast.error('Failed to fetch department data');
     }
     const data = await response.json();
     const department = data.departments.find((department: { displayName: string; }) => department.displayName === departmentName);
@@ -57,7 +58,7 @@ const fetchSimilarArtworks = async (departmentId: number | undefined, search: st
     }
     const response = await fetch(url);
     if (!response.ok) {
-        throw new Error('API response not OK');
+        toast.error('Failed to fetch similar artworks');
     }
     const data = await response.json();
     const suggestions = data.objectIDs ? data.objectIDs.slice(0, 8) : [];
@@ -70,7 +71,7 @@ const fetchSimilarArtworks = async (departmentId: number | undefined, search: st
     const artworks: Section[] = await Promise.all(suggestions.map(async (id: number) => {
         const response = await fetch('https://collectionapi.metmuseum.org/public/collection/v1/objects/' + id);
         if (!response.ok) {
-            throw new Error('API response not OK');
+            toast.error('Failed to fetch artwork data');
         }
         const artwork = await response.json();
         return {

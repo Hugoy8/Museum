@@ -25,6 +25,7 @@ function Search() {
     const [geoLocation, setGeoLocation] = useState('');
     const [dateBegin, setDateBegin] = useState<number | null>(null);
     const [dateEnd, setDateEnd] = useState<number | null>(null);
+    const [artistOrCulture, setArtistOrCulture] = useState(false);
 
     const artworksPerPage = 20;
     useEffect(() => {
@@ -44,6 +45,7 @@ function Search() {
         if (type === 'checkbox') {
             if (name === 'isHighlight') setIsHighlight(checked);
             if (name === 'hasImages') setHasImages(checked);
+            if (name === 'artistOrCulture') setArtistOrCulture(checked);
         } else if (name === 'departmentId') {
             setDepartmentId(value ? parseInt(value) : null);
         }
@@ -220,6 +222,17 @@ function Search() {
                                             Populaire
                                         </label>
                                     </div>
+                                    <div className="flex items-center me-4">
+                                        <input id="artistOrCulture" type="checkbox" value=""
+                                               className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
+                                               name="artistOrCulture"
+                                               checked={artistOrCulture}
+                                               onChange={handleFilterChange}/>
+                                        <label htmlFor="artistOrCulture"
+                                               className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                            Artiste ou Culture
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -228,18 +241,19 @@ function Search() {
             {artworks.length !== 0 && (
                 <div className="mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
                     <div className="md:flex md:items-center md:justify-between">
-                        <h2 className="text-2xl font-bold dark:text-white tracking-tight text-gray-900">Résultat de votre recherche</h2>
+                        <h2 className="text-2xl font-bold dark:text-white tracking-tight text-gray-900">Résultat de
+                            votre recherche</h2>
                     </div>
                 </div>
             )}
 
 
-                {loading ? (
-                    <Loader></Loader>
-                ) : (
-                    <>
-                        <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-4 lg:gap-x-8">
-                            {artworks.map((artwork: artworkResultSearch) => (
+            {loading ? (
+                <Loader></Loader>
+            ) : (
+                <>
+                    <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-4 lg:gap-x-8">
+                        {artworks.map((artwork: artworkResultSearch) => (
                                 <Oeuvre
                                     key={artwork.id}
                                     id={artwork.id}

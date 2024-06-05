@@ -15,7 +15,7 @@ function OeuvreSingle() {
   useEffect(() => {
     const fetchArtworks = async () => {
       if (!isLoading && data === null) {
-        navigate(`/`)
+        navigate(`/404`)
       }
       const departmentId = await getDepartmentId(data?.department || "");
       const query = data?.artistDisplayName ? data?.artistDisplayName : data?.title;
@@ -26,7 +26,7 @@ function OeuvreSingle() {
     };
 
     fetchArtworks().then(r => console.log(r)).catch(e => console.error(e));
-  }, [data, navigate, isLoading]);
+  }, [data, navigate, isLoading, isLoadingSuggestion]);
 
   const noDataFound : string = "Aucune donnée trouvée"
   return (

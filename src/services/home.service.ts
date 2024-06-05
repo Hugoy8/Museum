@@ -1,5 +1,6 @@
 import {getArtworkDataById} from "./isHighlight-artwork.ts";
 import {Section} from "../pages/interfaces/section.interface.ts";
+import {toast} from "sonner";
 
 const getArtworkByDepartment = async (departmentId: number) => {
     let url = `https://collectionapi.metmuseum.org/public/collection/v1/search?q=""`;
@@ -8,7 +9,7 @@ const getArtworkByDepartment = async (departmentId: number) => {
     }
     const response = await fetch(url);
     if (!response.ok) {
-        throw new Error('API response not OK');
+        toast.error('Failed to fetch artwork data');
     }
     const data = await response.json();
     const artworks = data.objectIDs.slice(0, 4);

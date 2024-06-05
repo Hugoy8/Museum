@@ -25,7 +25,6 @@ function Home() {
             const artworksAncientNearEasternArt = await getArtworkByDepartment(ancientNearEasternArtDepartmentId);
             setArtworkAncientNearEasternArtDepartment(artworksAncientNearEasternArt);
 
-            //Drawings and Prints
             const drawingsAndPrintsDepartmentId = await getDepartmentId('Drawings and Prints');
             const artworksDrawingsAndPrints = await getArtworkByDepartment(drawingsAndPrintsDepartmentId);
             setArtworksDrawingsAndPrints(artworksDrawingsAndPrints);
