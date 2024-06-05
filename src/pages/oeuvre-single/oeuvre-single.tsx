@@ -37,7 +37,7 @@ function OeuvreSingle() {
   const noDataFound : string = "Aucune donnée trouvée"
   return (
       <>
-        {isLoading && isLoadingSuggestion ? (
+        {isLoading ? (
             <Loader></Loader>
         ) : (
             <>
@@ -268,8 +268,12 @@ function OeuvreSingle() {
                   </div>
                 </div>
               </div>
-              {similarArtworks.length != 0 && (
-                  <OeuvreSection title="Recommandations par rapport à vos recherches" datas={similarArtworks}></OeuvreSection>
+              {isLoadingSuggestion ? (
+                  <Loader></Loader>
+              ) : (
+                  similarArtworks.length > 0 && (
+                      <OeuvreSection title="Recommandations par rapport à vos recherches" datas={similarArtworks}></OeuvreSection>
+                  )
               )}
           </>
         )}
