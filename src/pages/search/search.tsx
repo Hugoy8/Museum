@@ -8,7 +8,7 @@ import { ArtworkInterface } from "../interfaces/oeuvre-single.interface.ts";
 import Oeuvre from "../../components/oeuvre/oeuvre.tsx";
 import { artworkResultSearch } from "../interfaces/search.interface.ts";
 import Loader from "../../components/loader/loader.tsx";
-import { atoast } from 'sonner'
+import { toast } from 'sonner'
 
 function Search() {
     const [searchTerm, setSearchTerm] = useState('');
@@ -303,9 +303,7 @@ function Search() {
                             </div>
                         </nav>
                         )}
-                        {error && toast.warning(error, {
-                            position: "top-left",
-                        })}
+                        {error && toast.warning(error)}
                 </>
             )}
         </>
