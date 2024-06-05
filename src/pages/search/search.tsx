@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect, useRef} from 'react';
 import {
     getArtworkDataById,
     searchArtworkByFilters,
@@ -27,15 +27,17 @@ function Search() {
     const [artistOrCulture, setArtistOrCulture] = useState(false);
 
     const artworksPerPage = 20;
+
     useEffect(() => {
         fetchDepartments(setDepartments).then(r => r);
         const params = new URLSearchParams(window.location.search);
         if (params) {
 
             const searchTermParams = params.get('searchTerm');
+
             const isHighlightParams = params.get('highlight');
             const departmentIdParams = params.get('departmentId');
-            if (searchTermParams) setSearchTerm(searchTerm);
+            if (searchTermParams) setSearchTerm(searchTermParams);
             if (isHighlightParams) setIsHighlight(isHighlightParams === 'true');
             if (departmentIdParams) setDepartmentId(parseInt(departmentIdParams));
 
