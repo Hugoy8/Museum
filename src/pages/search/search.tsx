@@ -67,7 +67,7 @@ function Search() {
         }
     };
 
-    const handleSearchSubmit = async (event: Event) => {
+    const handleSearchSubmit = async (event: any) => {
         event.preventDefault();
         setSearchStatus(true);
 
