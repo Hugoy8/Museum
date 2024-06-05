@@ -22,7 +22,6 @@ function Oeuvres() {
             try{
                 const data1: Section[] = await getArtworkByDepartmentId(1);
                 setData1(data1);
-                console.log(data1);
                 const data2: Section[] = await getArtworkByDepartmentId(4);
                 setData2(data2);
 
@@ -34,7 +33,6 @@ function Oeuvres() {
 
                 const data5: Section[] = await getArtworkByDepartmentId(13);
                 setData5(data5);
-                console.log(data5);
 
                 const data6: Section[] = await getArtworkByDepartmentId(15);
                 setData6(data6);
