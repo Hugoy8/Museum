@@ -4,9 +4,12 @@ import Loader from "../loader/loader.tsx";
 import {Section} from "../../pages/interfaces/section.interface.ts";
 import {getDepartmentId} from "../../services/oeuvre-single.service.ts";
 import {getAllArtworkByDepartment} from "../../services/oeuvre-list.service.ts";
-import {getArtworkDataById} from "../../services/search.service.tsx";
+import {getArtworkDataById} from "../../services/search.service.ts";
 import {toast} from "sonner";
 
+/**
+ * OeuvreList component
+ */
 function OeuvreList() {
     const [loading, setLoading] = useState(true);
     const [artworks, setArtworks] = useState<Section[]>([]);
@@ -15,6 +18,11 @@ function OeuvreList() {
     const [allResults, setAllResults] = useState<number[]>([]);
     const artworksPerPage = 20;
 
+    /**
+     * Fetch artworks
+     * @param results - List of artwork IDs
+     * @param page - Current page
+     */
     const fetchArtworks = async (results: number[], page: number) => {
         setLoading(true);
         try {
@@ -33,6 +41,9 @@ function OeuvreList() {
     };
 
     useEffect(() => {
+        /**
+         * Fetch data
+         */
         const fetchData = async () => {
             setLoading(true);
             try {
@@ -64,10 +75,19 @@ function OeuvreList() {
         fetchData();
     }, [currentPage]);
 
+    /**
+     * Handle page change
+     * @param newPage - New page number
+     */
     const handlePageChange = (newPage: number) => {
         setCurrentPage(newPage);
     };
 
+    /**
+     * Generate page numbers
+     * @param currentPage - Current page
+     * @param totalPages - Total number of pages
+     */
     const generatePageNumbers = (currentPage: number, totalPages: number) => {
         const pages = [1, 2, 3, totalPages - 2, totalPages - 1, totalPages];
 

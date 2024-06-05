@@ -1,6 +1,10 @@
 import {Link} from "react-router-dom";
 import notFoundOeuvreImage from '../../assets/not-found/oeuvre.png';
 
+/**
+ * Display an oeuvre
+ * @param props id: number, title: string, author: string, date: string, picture: string
+ */
 function Oeuvre(props: {id: number, title: string, author: string, date: string, picture: string}) {
     return (
         <div className="group relative">

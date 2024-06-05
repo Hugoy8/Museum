@@ -1,3 +1,6 @@
+/**
+ * Actuality component
+ */
 function actuality() {
     return (
         <div className="bg-white py-8 sm:py-12">

@@ -2,6 +2,10 @@ import {toast} from "sonner";
 import {Section} from "../pages/interfaces/section.interface.ts";
 import {getArtworkDataById} from "./isHighlight-artwork.ts";
 
+/**
+ * Get all artwork by department
+ * @param departmentId - Department ID
+ */
 const getAllArtworkByDepartment = async (departmentId: number) => {
     let url = `https://collectionapi.metmuseum.org/public/collection/v1/search?q=""`;
     if (departmentId) {
