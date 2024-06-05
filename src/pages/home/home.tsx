@@ -7,7 +7,7 @@ import {useEffect, useState} from "react";
 import {getArtworkByDepartment, getArtworkFromArtists} from "../../services/home.service.ts";
 import {Section} from "../interfaces/section.interface.ts";
 import {getDepartmentId} from "../../services/oeuvre-single.service.ts";
-import {getArtworkDataById, UseisHighlightArtwork} from "../../services/isHighlight-artwork.ts";
+import { UseisHighlightArtwork} from "../../services/isHighlight-artwork.ts";
 
 
 function Home() {
@@ -59,10 +59,9 @@ function Home() {
 
                     <div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-48 lg:px-8">
                         <div className="mx-auto max-w-2xl lg:mx-0">
-                            <h2 className="text-3xl font-bold tracking-tight dark:text-white text-gray-900 sm:text-4xl">Des
-                                artistes connues</h2>
-                            <p className="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300">Découvrez nos oeuvres
-                                d'artites reconnu à travers le monde.</p>
+                            <h2 className="text-3xl font-bold tracking-tight dark:text-white text-gray-900 sm:text-4xl">Liste
+                                d'artistes connues</h2>
+                            <p className="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300">Découvrez nos œuvres d'artistes reconnus à travers le monde.</p>
                         </div>
                         <ul role="list"
                             className="mx-auto mt-20 grid max-w-2xl grid-cols-2 gap-x-8 gap-y-16 text-center sm:grid-cols-3 md:grid-cols-4 lg:mx-0 lg:max-w-none lg:grid-cols-5 xl:grid-cols-6">
@@ -87,7 +86,7 @@ function Home() {
                     </div>
                     <Statistics
                         title="Des statistiques qui choquent"
-                        description="Lorem ipsum dolor sit amet consect adipisicing possimus."
+                        description="Découvrez les chiffres du marché de l'art en 2021, des chiffres qui ne laissent pas indifférents"
                         information={[
                             {
                                 title: "États-Unis",

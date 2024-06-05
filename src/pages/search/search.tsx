@@ -161,7 +161,7 @@ function Search() {
         <>
             <div className="relative mt-12 sm:mt-12 xl:mx-auto xl:max-w-7xl xl:px-8">
                 <img src="https://images.unsplash.com/photo-1572953109213-3be62398eb95?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" className="aspect-[5/2] w-full object-cover xl:rounded-3xl"/>
-                <span className="absolute top-1/2 left-1/2 text-white max-sm:text-2xl lg:text-6xl text-4xl font-bold dark:text-white tracking-tight text-center" style={{transform: "translate(-50%, -50%)"}}>Une recherche personnalisé</span>
+                <span className="absolute top-1/2 left-1/2 text-white max-sm:text-2xl lg:text-6xl text-4xl font-bold dark:text-white tracking-tight text-center" style={{transform: "translate(-50%, -50%)"}}>Faites votre recherche personnalisée</span>
             </div>
             <form className="mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8 pt-24" onSubmit={handleSearchSubmit}>
                 <label className="block text-sm font-medium leading-6 text-gray-900 dark:text-white">Votre recherche</label>
@@ -203,7 +203,7 @@ function Search() {
                             <select id="department" name="departmentId" value={departmentId || ''}
                                     onChange={handleFilterChange}
                                     className="block dark:bg-white/5 dark:ring-white/10 dark:text-white w-full rounded-md border-0 py-2 pl-2 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                <option value="">Select Department</option>
+                                <option value="">Sélectionnez un département</option>
                                 {departments.map(department => (
                                     <option key={department.departmentId} value={department.departmentId}>
                                         {department.displayName}
@@ -251,17 +251,6 @@ function Search() {
                                 Populaire
                             </label>
                         </div>
-                        <div className="flex items-center me-4">
-                            <input id="artistOrCulture" type="checkbox" value=""
-                                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
-                                   name="artistOrCulture"
-                                   checked={artistOrCulture}
-                                   onChange={handleFilterChange}/>
-                            <label htmlFor="artistOrCulture"
-                                   className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                                Artistes ou Cultures
-                            </label>
-                        </div>
                     </div>
                 </div>
             </form>
@@ -269,7 +258,7 @@ function Search() {
             {searchStatus && (
                 <div className="mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
                     <div className="md:flex md:items-center md:justify-between">
-                        <h2 className="text-2xl font-bold dark:text-white tracking-tight text-gray-900">Résultat de
+                        <h2 className="text-2xl font-bold dark:text-white tracking-tight text-gray-900">Résultat(s) de
                             votre recherche</h2>
                     </div>
 
