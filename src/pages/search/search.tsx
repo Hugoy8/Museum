@@ -13,7 +13,7 @@ function Search() {
     const [searchTerm, setSearchTerm] = useState('');
     const [allResults, setAllResults] = useState<number[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [artworks, setArtworks] = useState<artworkResultSearch[]>([]);
+    const [artworks, setArtworks] = useState<(artworkResultSearch | undefined)[]>([]);
     const [loading, setLoading] = useState(false);
     const [searchStatus, setSearchStatus] = useState(false);
 
@@ -83,9 +83,9 @@ function Search() {
             const endIndex = startIndex + artworksPerPage;
             const currentResults = results.slice(startIndex, endIndex);
 
-            const artworkPromises = currentResults.map(id => getArtworkDataById(id));
-            const artworkData = await Promise.all(artworkPromises);
-            setArtworks(artworkData.filter(data => data !== undefined));
+            const artworkPromises: Promise<artworkResultSearch | undefined>[] = currentResults.map(id => getArtworkDataById(id));
+            const artworkData: (artworkResultSearch | undefined)[] = await Promise.all(artworkPromises);
+            setArtworks(artworkData);
         } catch (e) {
             toast.error('Une erreur s\'est produite lors de la récupération des œuvres d\'art.');
         } finally {
@@ -233,7 +233,8 @@ function Search() {
                     ) : (
                         <>
                             <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-4 lg:gap-x-8">
-                                {artworks.map((artwork: artworkResultSearch) => (
+                                {artworks.map((artwork: artworkResultSearch | undefined) => (
+                                    artwork &&
                                     <Oeuvre
                                         key={artwork.id}
                                         id={artwork.id}
@@ -250,7 +251,7 @@ function Search() {
                                     <div className="-mt-px flex w-0 flex-1">
                                         <button
                                             onClick={() => handlePageChange(currentPage - 1)}
-                                            disabled={currentPage === 1} className="inline-flex items-center border-t-2 border-transparent pr-1 pt-4 text-sm font-medium dark:text-gray-400 text-gray-500 dark:hover:border-gray-500 hover:border-gray-300 dark:hover:text-gray-500 hover:text-gray-700">
+                                            disabled={currentPage === 1} className="inline-flex cursor-pointer items-center border-t-2 border-transparent pr-1 pt-4 text-sm font-medium dark:text-gray-400 text-gray-500 dark:hover:border-gray-500 hover:border-gray-300 dark:hover:text-gray-500 hover:text-gray-700">
                                             <svg className="mr-3 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor"
                                                  aria-hidden="true">
                                                 <path fillRule="evenodd"
@@ -280,7 +281,7 @@ function Search() {
                                         <button
                                             onClick={() => handlePageChange(currentPage + 1)}
                                             disabled={currentPage === Math.ceil(allResults.length / artworksPerPage)}
-                                            className="inline-flex items-center border-t-2 border-transparent pl-1 pt-4 text-sm font-medium dark:text-gray-400 text-gray-500 dark:hover:border-gray-500 hover:border-gray-300 dark:hover:text-gray-500 hover:text-gray-700">
+                                            className="inline-flex cursor-pointer items-center border-t-2 border-transparent pl-1 pt-4 text-sm font-medium dark:text-gray-400 text-gray-500 dark:hover:border-gray-500 hover:border-gray-300 dark:hover:text-gray-500 hover:text-gray-700">
                                             Suivant
                                             <svg className="ml-3 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor"
                                                  aria-hidden="true">

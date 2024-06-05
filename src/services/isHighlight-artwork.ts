@@ -21,7 +21,7 @@ const getArtworkDataById = async (id: number) => {
         const data: ArtworkInterface = await response.json();
         return {ObjectID: data.objectID, title: data.title, artistDisplayName: data.artistDisplayName, objectDate: data.objectDate, primaryImage: data.primaryImage};
     } catch (e) {
-        toast.error(e);
+        toast.error(e as string);
     }
 }
 
@@ -50,10 +50,10 @@ const UseisHighlightArtwork = () => {
             } catch (e) {
                 setDataHighlight([]);
                 setIsLoading(false);
-                toast.error(e);
+                toast.error(e as string);
             }
         }
-        getArtworkIfisHighlight().then(r => toast.success('Artwork data fetched successfully'));
+        getArtworkIfisHighlight().then(() => toast.success('Artwork data fetched successfully'));
     }, []);
 
     return {dataHighlight, isLoading};
