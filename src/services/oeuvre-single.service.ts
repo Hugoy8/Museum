@@ -16,7 +16,8 @@ const useArtworkById = () => {
             try {
                 const response = await fetch('https://collectionapi.metmuseum.org/public/collection/v1/objects/' + id);
                 if (!response.ok) {
-                    throw new Error('API response not OK');
+                    toast.error('Failed to fetch artwork data');
+                    return undefined;
                 }
                 const data: ArtworkInterface = await response.json();
                 setData(data);
@@ -38,6 +39,7 @@ const getDepartmentId = async (departmentName: string)  => {
     const response = await fetch('https://collectionapi.metmuseum.org/public/collection/v1/departments');
     if (!response.ok) {
         toast.error('Failed to fetch department data');
+        return undefined;
     }
     const data = await response.json();
     const department = data.departments.find((department: { displayName: string; }) => department.displayName === departmentName);
@@ -59,6 +61,7 @@ const fetchSimilarArtworks = async (departmentId: number | undefined, search: st
     const response = await fetch(url);
     if (!response.ok) {
         toast.error('Failed to fetch similar artworks');
+        return { artworks: [], isLoadingSuggestion: false };
     }
     const data = await response.json();
     const suggestions = data.objectIDs ? data.objectIDs.slice(0, 8) : [];
@@ -72,6 +75,7 @@ const fetchSimilarArtworks = async (departmentId: number | undefined, search: st
         const response = await fetch('https://collectionapi.metmuseum.org/public/collection/v1/objects/' + id);
         if (!response.ok) {
             toast.error('Failed to fetch artwork data');
+            return undefined;
         }
         const artwork = await response.json();
         return {
