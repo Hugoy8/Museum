@@ -4,6 +4,9 @@ import {ArtworkInterface} from "../pages/interfaces/oeuvre-single.interface.ts";
 import {Section} from "../pages/interfaces/section.interface.ts";
 import {toast} from "sonner";
 
+/**
+ * Get artwork by ID
+ */
 const useArtworkById = () => {
     const { id } = useParams<{ id: string }>();
     const [data, setData] = useState<ArtworkInterface | null>(null);
@@ -11,6 +14,9 @@ const useArtworkById = () => {
 
 
     useEffect(() => {
+        /**
+         * Get artwork data by ID
+         */
         const getArtworkDataById = async () => {
             setIsLoading(true);
             try {
@@ -35,6 +41,10 @@ const useArtworkById = () => {
     return { data, isLoading };
 }
 
+/**
+ * Get department ID by name
+ * @param departmentName - Department name
+ */
 const getDepartmentId = async (departmentName: string)  => {
     const response = await fetch('https://collectionapi.metmuseum.org/public/collection/v1/departments');
     if (!response.ok) {
@@ -50,6 +60,12 @@ const getDepartmentId = async (departmentName: string)  => {
 
 }
 
+/**
+ * Fetch similar artworks
+ * @param departmentId - Department ID
+ * @param search - Search query
+ * @param currentArtwork - Current artwork ID
+ */
 const fetchSimilarArtworks = async (departmentId: number | undefined, search: string | undefined, currentArtwork: number | undefined) => {
     let url = 'https://collectionapi.metmuseum.org/public/collection/v1/search?';
     if (departmentId !== undefined) {

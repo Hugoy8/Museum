@@ -6,6 +6,9 @@ import {useEffect, useState} from "react";
 import Loader from "../../components/loader/loader.tsx";
 import {Section} from "../interfaces/section.interface.ts";
 
+/**
+ * OeuvreSingle component
+ */
 function OeuvreSingle() {
   const navigate = useNavigate();
 
@@ -19,6 +22,9 @@ function OeuvreSingle() {
 
 
   useEffect(() => {
+    /**
+     * Fetch data from the API for a specific artwork
+     */
     const fetchArtworks = async () => {
       if (!isLoading && data === null) {
         navigate(`/404`)

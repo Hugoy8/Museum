@@ -3,14 +3,25 @@ import DarkModeToggle from "../../services/darkMode.service.tsx";
 import {useState} from "react";
 import logo from "../../assets/logos/logo.png";
 
+/**
+ * Header component
+ */
 function Header() {
     const [statusHeaderMenu, setStatusHeaderMenu] = useState(false);
 
     const navigate = useNavigate();
+
+    /**
+     * Toggle the header menu
+     */
     const toggleHeaderMenu = (): void => {
         setStatusHeaderMenu(!statusHeaderMenu);
     }
 
+    /**
+     * Handle the search submit
+     * @param event
+     */
     const handleSearchSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         if (event.currentTarget.search.value == '' || event.currentTarget.search.value == undefined) {
             navigate('/search');

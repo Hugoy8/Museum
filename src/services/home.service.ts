@@ -2,6 +2,10 @@ import {getArtworkDataById} from "./isHighlight-artwork.ts";
 import {Section} from "../pages/interfaces/section.interface.ts";
 import {toast} from "sonner";
 
+/**
+ * Get artwork by department
+ * @param departmentId - Department ID
+ */
 const getArtworkByDepartment = async (departmentId: number) => {
     let url = `https://collectionapi.metmuseum.org/public/collection/v1/search?q=""`;
     if (departmentId) {
@@ -21,6 +25,10 @@ const getArtworkByDepartment = async (departmentId: number) => {
     return validArtworkData || [];
 };
 
+/**
+ * Get artwork from artists
+ * @param name - Name of the artist
+ */
 const getArtworkFromArtists = async (name: string) => {
     const url = `https://collectionapi.metmuseum.org/public/collection/v1/search?q=${name}`;
     const response = await fetch(url);

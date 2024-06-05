@@ -3,12 +3,15 @@ import {
     getArtworkDataById,
     searchArtworkByFilters,
     fetchDepartments, Department
-} from "../../services/search.service.tsx";
+} from "../../services/search.service.ts";
 import Oeuvre from "../../components/oeuvre/oeuvre.tsx";
 import { artworkResultSearch } from "../interfaces/search.interface.ts";
 import Loader from "../../components/loader/loader.tsx";
 import { toast } from 'sonner'
 
+/**
+ * Search component
+ */
 function Search() {
     const [searchTerm, setSearchTerm] = useState('');
     const [allResults, setAllResults] = useState<number[]>([]);
@@ -60,14 +63,26 @@ function Search() {
 
     }, [isHighlight, departmentId, searchTerm]);
 
+    /**
+     * Handle search change
+     * @param event - Event
+     */
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(event.target.value);
     };
 
+    /**
+     * Handle geo location change
+     * @param event - Event
+     */
     const handleGeoLocationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setGeoLocation(event.target.value);
     };
 
+    /**
+     * Handle filter change
+     * @param event - Event
+     */
     const handleFilterChange = (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
         const { name, value, type } = event.target;
         if (type === 'checkbox') {
@@ -81,6 +96,13 @@ function Search() {
         }
     };
 
+    /**
+     * Handle search submit
+     * @param event - Event
+     * @param localSearchTerm - search value in search input
+     * @param localIsHighlight - isHighlight value in checkbox
+     * @param localDepartmentId - departmentId value in select
+     */
     const handleSearchSubmit = async (event: any, localSearchTerm: string = searchTerm, localIsHighlight: boolean = isHighlight, localDepartmentId: number | null = departmentId) => {
         event.preventDefault();
         setSearchStatus(true);
@@ -108,6 +130,11 @@ function Search() {
         }
 };
 
+    /**
+     * Fetch artworks by results
+     * @param results - Results of search
+     * @param page - Page number
+     */
     const fetchArtworks = async (results: number[], page: number) => {
         setLoading(true);
         try {
@@ -125,11 +152,20 @@ function Search() {
         }
     };
 
+    /**
+     * Handle page change
+     * @param newPage - New page number
+     */
     const handlePageChange = (newPage: number) => {
         setCurrentPage(newPage);
         fetchArtworks(allResults, newPage).then(r => console.log(r));
     };
 
+    /**
+     * Generate page numbers for pagination
+     * @param currentPage - Current page number
+     * @param totalPages - Total pages number
+     */
     const generatePageNumbers = (currentPage: number, totalPages: number) => {
         const pages = [1, 2, 3, totalPages - 2, totalPages - 1, totalPages];
 

@@ -9,7 +9,9 @@ import {Section} from "../interfaces/section.interface.ts";
 import {getDepartmentId} from "../../services/oeuvre-single.service.ts";
 import { UseisHighlightArtwork} from "../../services/isHighlight-artwork.ts";
 
-
+/**
+ * Home component
+ */
 function Home() {
     const {dataHighlight, isLoading} = UseisHighlightArtwork();
     const [artsofAfricaOceaniaAmericasDepartment, setArtsOfAfricaOceaniaAmericasDepartment] = useState<Section[]>([]);
@@ -17,6 +19,9 @@ function Home() {
     const [artworksDrawingsAndPrints, setArtworksDrawingsAndPrints] = useState<Section[]>([]);
     const [artworksFromArtists, setArtworksFromArtists] = useState<Section[]>([]);
     useEffect(() => {
+        /**
+         * Fetch data from the API with different departments and artists
+         */
         const fetchData = async () => {
             const artsofAfricaOceaniaAmericasDepartmentId = await getDepartmentId('Arts of Africa, Oceania, and the Americas');
             const artworks = await getArtworkByDepartment(artsofAfricaOceaniaAmericasDepartmentId);

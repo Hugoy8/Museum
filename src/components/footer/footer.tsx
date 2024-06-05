@@ -1,5 +1,8 @@
 import {Link} from "react-router-dom";
 
+/**
+ * Footer component
+ */
 function Footer() {
     return (
         <footer>

@@ -1,3 +1,9 @@
+/**
+ * Statistics component
+ * @param title - Title of the section
+ * @param description - Description of the section
+ * @param information - Array of object with title and description
+ */
 function Statistics({title, description, information}: StatisticsProps) {
     return (
         <div className="py-24 sm:py-32">

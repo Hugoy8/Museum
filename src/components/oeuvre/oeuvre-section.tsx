@@ -2,6 +2,10 @@ import Oeuvre from "./oeuvre.tsx";
 import {Section} from "../../pages/interfaces/section.interface.ts";
 import {Link} from "react-router-dom";
 
+/**
+ * OeuvreSection component
+ * @param props - title: string, nameButton?: string, datas?: Section[], redirection?: string
+ */
 function OeuvreSection(props: {title: string, nameButton?: string, datas?: Section[], redirection?: string}) {
     return (
         <div>
