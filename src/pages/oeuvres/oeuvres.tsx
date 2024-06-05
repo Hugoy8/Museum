@@ -1,9 +1,9 @@
 import OeuvreSection from "../../components/oeuvre/oeuvre-section.tsx";
 import {useEffect, useState} from "react";
 import {Section} from "../../models/section.interface.ts";
-import {getArtworkByDepartment} from "../../services/home.service.ts";
 import Loader from "../../components/loader/loader.tsx";
 import {toast} from "sonner";
+import {getArtworkByDepartmentId} from "../../services/oeuvres.service.ts";
 
 function Oeuvres() {
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -20,30 +20,32 @@ function Oeuvres() {
             setIsLoading(true);
 
             try{
-                const data1: Section[] = await getArtworkByDepartment(1);
+                const data1: Section[] = await getArtworkByDepartmentId(1);
                 setData1(data1);
-
-                const data2: Section[] = await getArtworkByDepartment(4);
+                console.log(data1);
+                const data2: Section[] = await getArtworkByDepartmentId(4);
                 setData2(data2);
 
-                const data3: Section[] = await getArtworkByDepartment(10);
+                const data3: Section[] = await getArtworkByDepartmentId(10);
                 setData3(data3);
 
-                const data4: Section[] = await getArtworkByDepartment(11);
+                const data4: Section[] = await getArtworkByDepartmentId(11);
                 setData4(data4);
 
-                const data5: Section[] = await getArtworkByDepartment(13);
+                const data5: Section[] = await getArtworkByDepartmentId(13);
                 setData5(data5);
+                console.log(data5);
 
-                const data6: Section[] = await getArtworkByDepartment(15);
+                const data6: Section[] = await getArtworkByDepartmentId(15);
                 setData6(data6);
+
             } catch (e) {
                 toast.error('Impossible de charger les oeuvres. Veuillez réessayer plus tard.');
             } finally {
                 setIsLoading(false);
             }
         };
-        fetchData();
+        fetchData()
     }, []);
 
     return (
