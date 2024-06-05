@@ -33,9 +33,7 @@ const useArtworkById = () => {
                 setIsLoading(false);
             }
         }
-        getArtworkDataById().then(r =>
-            console.log(r)
-        );
+        getArtworkDataById();
     }, [id]);
 
     return { data, isLoading };
